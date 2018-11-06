@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <title></title>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style>
+			.bottom-div-img{
+				margin-top: 0.5rem;
+				width: 1.5rem;
+			}
+			.bottom-div-img-1{
+				margin-top: 0.5rem;
+				width: 1.2rem;
+			}
+			.bottom-div-span{
+				font-size: 0.8rem;
+				color:  #0078B9;
+			}
+			.bottom-div-span-1{
+				font-size: 0.8rem;
+				color:  #999999;
+			}
+			.top-box{
+				display: flex;
+				flex-direction: row;
+				align-items:center;
+				background-color: #0078B9;
+			}
+			.top-box-item{
+				flex: 1;
+			}
+			.top-box-item-left{
+				text-align: left;
+			}
+			.top-box-item-center{
+				text-align: center;
+			}
+			.top-box-item-right{
+				text-align: right;
+			}
+			.top-div-span{
+				color: #FFFFFF;
+				font-weight: bold;
+				font-size: 1.2rem;
+			}
+			.top-search{
+				
+			}
+		</style>
+	    <!--<script type="text/javascript">
+	    	
+	   		document.addEventListener('plusready', function(){
+	   			//console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。"
+	   			
+	   		});
+	   		
+	    </script>-->
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav top-box">
+			<div class="top-box-item">
+				<img class="bottom-div-img" src="../img/buylist/sys.png" />
+			</div>
+			<div class="top-box-item top-box-item-center">
+				<span class="top-div-span">发啥货</span>
+			</div>
+			<div class="top-box-item top-box-item-right">
+				<img class="bottom-div-img" src="../img/buylist/card.png" />
+			</div>
+		</header>
+		<section>
+			<div class="top-search">
+				
+			</div>
+		</section>
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="#buylist">
+				<img class="bottom-div-img" src="../img/buylist/quan2.png" />
+				<div class="bottom-div-span">运费券</div>
+			</a>
+			<a class="mui-tab-item" href="#orderlist">
+				<img class="bottom-div-img-1" src="../img/buylist/order1.png" />
+				<div class="bottom-div-span-1">订单</div>
+			</a>
+			<a class="mui-tab-item" href="#my">
+				<img class="bottom-div-img-1" src="../img/buylist/my1.png" />
+				<div class="bottom-div-span-1">我的</div>
+			</a>
+		</nav>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+	</script>
+</html>

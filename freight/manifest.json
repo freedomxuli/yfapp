@@ -10,7 +10,7 @@
     "icons": {
         "72": "icon.png"
     },
-    "launch_path": "index.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+    "launch_path": "html/buylist.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
     "developer": {
         "name": "",/*开发者名称*/
         "email": "",/*开发者邮箱地址*/
@@ -135,5 +135,43 @@
                 }
             }
         }
-    }
+    },
+	"dependencies": {
+		"pages": {
+			"html/buylist.html": {
+				"resources": [
+					"img/buylist/券@2x.png",
+					"img/buylist/quan2.png"
+				],
+				"refer": [],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"img/buylist/icon_my@2x.png",
+				"img/buylist/券-灰@2x.png",
+				"img/buylist/筛选@2x.png",
+				"img/buylist/icon_my_选中@2x.png",
+				"img/buylist/Layer2@2x.png",
+				"fonts/mui.ttf",
+				"css/mui.css",
+				"img/buylist/图层8@2x.png",
+				"img/buylist/Layer1@2x.png",
+				"img/buylist/图层6@2x.png",
+				"index.html",
+				"img/buylist/订单 (2)@2x.png",
+				"img/buylist/订单-选中@2x.png",
+				"img/buylist/Layer3@2x_71.png",
+				"js/mui.min.js",
+				"img/buylist/卡券@2x.png",
+				"css/mui.min.css",
+				"img/buylist/扫一扫@2x.png",
+				"img/logo.png",
+				"js/mui.js",
+				"img/buylist/下拉@2x.png",
+				"img/buylist/图层3@2x.png"
+			]
+		}
+	}
 }

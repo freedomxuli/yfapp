@@ -47,7 +47,41 @@
 				font-size: 1.2rem;
 			}
 			.top-search{
-				
+				margin-top: 3.5rem;
+				display:flex;
+				justify-content: space-around; 
+			}
+			.search-div1{
+				flex: 2;
+			}
+			.button-div1{
+				padding: 0.2rem !important;
+				width:3.6rem;
+				height: 2rem;
+				margin: 0 auto;
+			}
+			.img-div1{
+				width:0.8rem;
+			}
+			.span-div1{
+				font-size: 0.8rem;
+				font-family: "微软雅黑";
+			}
+			.input-div1{
+				flex:4.5;
+			}
+			.text-div1{
+				padding: 0.2rem !important;
+				height: 2rem !important;
+				font-size: 0.8rem;
+				font-family: "微软雅黑";
+			}
+			.button-div2{
+				padding: 0.2rem !important;
+				width:3.6rem;
+				height: 2rem;
+				margin:0 auto;
+				display: block;
 			}
 		</style>
 	    <!--<script type="text/javascript">
@@ -73,7 +107,18 @@
 		</header>
 		<section>
 			<div class="top-search">
-				
+				<div class="search-div1">
+					<button id='showUserPicker' class="mui-btn mui-btn-block button-div1" type='button'>
+						<span class="span-div1">公司&nbsp;</span>
+						<img class="img-div1" src="../img/buylist/down.png" />
+					</button>
+				</div>
+				<div class="input-div1">
+					<input class="text-div1" type="text" placeholder="输入专线公司名称进行搜索">
+				</div>
+				<div class="search-div1">
+					<button type="button" class="mui-btn mui-btn-primary button-div2">搜索</button>
+				</div>
 			</div>
 		</section>
 		<nav class="mui-bar mui-bar-tab">

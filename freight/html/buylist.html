@@ -203,7 +203,7 @@
 	</head>
 	<body>
 		<header class="mui-bar mui-bar-nav top-box">
-			<div class="top-box-item">
+			<div class="top-box-item" id="ewmclass">
 				<img class="bottom-div-img" src="../img/buylist/sys.png" />
 			</div>
 			<div class="top-box-item top-box-item-center">
@@ -293,7 +293,43 @@
 									<!--<div>
 										推荐指数：300点
 									</div>-->
-									<div class="center-li-content-span1 center-ckxq">
+									<div class="center-li-content-span1 center-ckxq showdetails">
+										查看详情<img class="center-li-content-img2" src="../img/buylist/ckxq.png" />
+									</div>
+								</div>
+								<div class="center-li-content-div3">
+									<button type="button" class="mui-btn mui-btn-primary" onclick="Buypoints();">购买</button>
+								</div>	
+							</div>
+						</li>
+						<li class="">
+							<div class="center-li-title">
+								<div class="center-li-title-div1"><img class="center-li-title-img1" src="../img/buylist/zxbs.png" /> <span>轩程物流</span> </div>
+								<div class="center-li-title-div2"><img class="center-li-title-img2" src="../img/buylist/lls.png" /> <span>浏览数 600</span> </div>
+								<div class="center-li-title-div2"><img class="center-li-title-img2" src="../img/buylist/gzs.png" /> <span>关注数 500</span> </div>
+								<div class="center-li-title-div2"><img class="center-li-title-img2" src="../img/buylist/dwdz.png" /> <span>常州市</span> </div>
+							</div>
+							<div class="center-li-content">
+								<div class="center-li-content-div1">
+									<img class="center-li-content-img1" src="../img/buylist/timg.png"/>
+								</div>
+								<div class="center-li-content-div2">
+									<div class="center-li-content-span1">
+										券类型：长期券
+									</div>
+									<div class="center-li-content-span1">
+										折扣：7折
+									</div>
+									<div class="center-li-content-span1">
+										销售：300点&nbsp;&nbsp;剩余：100点
+									</div>
+									<div class="center-li-content-span1">
+										线路：常州-长沙、湖南全境、湖北全境
+									</div>
+									<!--<div>
+										推荐指数：300点
+									</div>-->
+									<div class="center-li-content-span1 center-ckxq showdetails">
 										查看详情<img class="center-li-content-img2" src="../img/buylist/ckxq.png" />
 									</div>
 								</div>
@@ -365,7 +401,7 @@
 									<!--<div>
 										推荐指数：300点
 									</div>-->
-									<div class="center-li-content-span1 center-ckxq">
+									<div class="center-li-content-span1 center-ckxq showdetails">
 										查看详情<img class="center-li-content-img2" src="../img/buylist/ckxq.png" />
 									</div>
 								</div>
@@ -401,43 +437,7 @@
 									<!--<div>
 										推荐指数：300点
 									</div>-->
-									<div class="center-li-content-span1 center-ckxq">
-										查看详情<img class="center-li-content-img2" src="../img/buylist/ckxq.png" />
-									</div>
-								</div>
-								<div class="center-li-content-div3">
-									<button type="button" class="mui-btn mui-btn-primary" onclick="Buypoints();">购买</button>
-								</div>	
-							</div>
-						</li>
-						<li class="">
-							<div class="center-li-title">
-								<div class="center-li-title-div1"><img class="center-li-title-img1" src="../img/buylist/zxbs.png" /> <span>轩程物流</span> </div>
-								<div class="center-li-title-div2"><img class="center-li-title-img2" src="../img/buylist/lls.png" /> <span>浏览数 600</span> </div>
-								<div class="center-li-title-div2"><img class="center-li-title-img2" src="../img/buylist/gzs.png" /> <span>关注数 500</span> </div>
-								<div class="center-li-title-div2"><img class="center-li-title-img2" src="../img/buylist/dwdz.png" /> <span>常州市</span> </div>
-							</div>
-							<div class="center-li-content">
-								<div class="center-li-content-div1">
-									<img class="center-li-content-img1" src="../img/buylist/timg.png"/>
-								</div>
-								<div class="center-li-content-div2">
-									<div class="center-li-content-span1">
-										券类型：长期券
-									</div>
-									<div class="center-li-content-span1">
-										折扣：7折
-									</div>
-									<div class="center-li-content-span1">
-										销售：300点&nbsp;&nbsp;剩余：100点
-									</div>
-									<div class="center-li-content-span1">
-										线路：常州-长沙、湖南全境、湖北全境
-									</div>
-									<!--<div>
-										推荐指数：300点
-									</div>-->
-									<div class="center-li-content-span1 center-ckxq">
+									<div class="center-li-content-span1 center-ckxq showdetails">
 										查看详情<img class="center-li-content-img2" src="../img/buylist/ckxq.png" />
 									</div>
 								</div>
@@ -535,7 +535,12 @@
 				}
 			}
 		})
-		
+		mui('.center-li-content-div2').on('tap','.showdetails',function(){
+			clicked('companydetail.html', {}, 'slide-in-right');
+		})
+		document.getElementById('ewmclass').addEventListener('tap',function(){
+			clicked('pointslist.html', {}, 'slide-in-right');
+		})
 //		if (mui.os.plus) {
 //			mui.plusReady(function() {
 //				setTimeout(function() {

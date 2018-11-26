@@ -9,6 +9,7 @@
 		<style>
 			body{
 				background-color: #FFFFFF;
+				overflow: scroll;
 			}
 			.bottom-div-img{
 				margin-top: 0.5rem;
@@ -226,7 +227,7 @@
 					<div class="content-center-div-child-span1">我的收款码</div>
 					<div class="content-center-div-child-span2">扫一扫，收取运费券</div>
 				</div>
-				<div class="content-center-div-child1">
+				<div class="content-center-div-child1" id="share">
 					<img class="content-center-div-child-img" src="../img/my/name.png" />
 					<div class="content-center-div-child-span1">我的名片</div>
 					<div class="content-center-div-child-span2">分享名片有礼</div>
@@ -240,7 +241,7 @@
 			<div class="content-bottom-title">
 				我的服务
 			</div>
-			<div class="content-bottom-title">
+			<div class="content-bottom-title" id="qbClass">
 				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/cardbox.png" /></div>
 				<div class="content-bottom-title-name">&nbsp;&nbsp;券包</div>
 				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
@@ -250,9 +251,19 @@
 				<div class="content-bottom-title-name">&nbsp;&nbsp;钱包</div>
 				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
 			</div>
-			<div class="content-bottom-title">
+			<div class="content-bottom-title" id="jyjl">
 				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/card.png" /></div>
 				<div class="content-bottom-title-name">&nbsp;&nbsp;交易记录</div>
+				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
+			</div>
+			<div class="content-bottom-title" id="sqyfq">
+				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/card.png" /></div>
+				<div class="content-bottom-title-name">&nbsp;&nbsp;申请运费券</div>
+				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
+			</div>
+			<div class="content-bottom-title" id="smsq">
+				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/card.png" /></div>
+				<div class="content-bottom-title-name">&nbsp;&nbsp;授予运费券</div>
 				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
 			</div>
 			<div class="content-bottom-title">
@@ -260,12 +271,17 @@
 				<div class="content-bottom-title-name">&nbsp;&nbsp;银行卡</div>
 				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
 			</div>
-			<!--<div class="content-bottom-title">
+			<div class="content-bottom-title">
 				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/contact.png" /></div>
 				<div class="content-bottom-title-name">&nbsp;&nbsp;我的客服</div>
 				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
-			</div>-->
+			</div>
 		</section>
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
 		<nav class="mui-bar mui-bar-tab">
 			<a class="mui-tab-item mui-active" data-webview="buylist.html">
 				<img class="bottom-div-img" src="../img/buylist/quan1.png" />
@@ -285,6 +301,89 @@
 	<script src="../js/app.js"></script>
 	<script>
 			mui.init();
+			var shares = {};
+		
+			mui.plusReady(function() {
+				plus.share.getServices(function(s) {
+					if (s && s.length > 0) {
+						for (var i = 0; i < s.length; i++) {
+							var t = s[i];
+							shares[t.id] = t;
+						}
+					}
+				}, function() {
+					console.log("获取分享服务列表失败");
+				});
+			});
+			
+			//分享链接点击事件
+			document.getElementById("share").addEventListener('tap', function() {
+				var ids = [{
+						id: "weixin",
+						ex: "WXSceneSession"
+					}, {
+						id: "weixin",
+						ex: "WXSceneTimeline"
+					}, {
+						id: "sinaweibo"
+					}, {
+						id: "tencentweibo"
+					}, {
+						id: "qq"
+					}],
+					bts = [{
+						title: "发送给微信好友"
+					}, {
+						title: "分享到微信朋友圈"
+					}, {
+						title: "分享到新浪微博"
+					}, {
+						title: "分享到腾讯微博"
+					}, {
+						title: "分享到QQ"
+					}];
+				plus.nativeUI.actionSheet({
+					cancel: "取消",
+					buttons: bts
+				}, function(e) {
+					var i = e.index;
+					if (i > 0) {
+						var s_id = ids[i - 1].id;
+						var share = shares[s_id];
+						if (share) {
+							if (share.authenticated) {
+								shareMessage(share, ids[i - 1].ex);
+							} else {
+								share.authorize(function() {
+									shareMessage(share, ids[i - 1].ex);
+								}, function(e) {
+									console.log("认证授权失败：" + e.code + " - " + e.message);
+								});
+							}
+						} else {
+							mui.toast("无法获取分享服务，请检查manifest.json中分享插件参数配置，并重新打包")
+						}
+					}
+				});
+			});
+			
+			function shareMessage(share, ex) {
+				var msg = {
+					extra: {
+						scene: ex
+					}
+				};
+				msg.href = "http://www.chahuobao.net";
+				msg.title = "发啥货";
+				msg.content = "发啥货都省钱";
+				msg.thumbs = ["_www/images/logo.png"];
+				share.send(msg, function() {
+					console.log("分享到\"" + share.description + "\"成功！ ");
+				}, function(e) {
+					console.log("分享到\"" + share.description + "\"失败: " + e.code + " - " + e.message);
+				});
+			}
+		
 			(function($) {
 				$('.mui-bar-tab').on('tap','.mui-tab-item',function(){
 					var curr = plus.webview.currentWebview();
@@ -324,6 +423,18 @@
 			})
 			document.getElementById('setting').addEventListener('tap',function(){
 				clicked('setting.html', {}, 'slide-in-right');
+			})
+			document.getElementById('jyjl').addEventListener('tap',function(){
+				clicked('tradelist.html', {}, 'slide-in-right');
+			})
+			document.getElementById('qbClass').addEventListener('tap',function(){
+				clicked('MyCard.html', {}, 'slide-in-right');
+			})
+			document.getElementById('smsq').addEventListener('tap',function(){
+				clicked('smsq.html', {}, 'slide-in-right');
+			})
+			document.getElementById('sqyfq').addEventListener('tap',function(){
+				clicked('sqyfq.html', {}, 'slide-in-right');
 			})
 		</script>
 </html>

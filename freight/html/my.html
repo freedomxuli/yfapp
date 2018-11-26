@@ -178,7 +178,7 @@
 			<div class="top-box-item2 top-box-item-center">
 				<span class="top-div-span">我的</span>
 			</div>
-			<div class="top-box-item">
+			<div class="top-box-item" id="setting">
 				<img class="top-div-img" src="../img/my/setting.png" />
 			</div>
 		</header>
@@ -221,7 +221,7 @@
 		</section>
 		<section>
 			<div class="content-center-div">
-				<div class="content-center-div-child">
+				<div class="content-center-div-child" id="myewm">
 					<img class="content-center-div-child-img" src="../img/my/collect.png" />
 					<div class="content-center-div-child-span1">我的收款码</div>
 					<div class="content-center-div-child-span2">扫一扫，收取运费券</div>
@@ -251,15 +251,20 @@
 				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
 			</div>
 			<div class="content-bottom-title">
+				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/card.png" /></div>
+				<div class="content-bottom-title-name">&nbsp;&nbsp;交易记录</div>
+				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
+			</div>
+			<div class="content-bottom-title">
 				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/bank.png" /></div>
 				<div class="content-bottom-title-name">&nbsp;&nbsp;银行卡</div>
 				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
 			</div>
-			<div class="content-bottom-title">
+			<!--<div class="content-bottom-title">
 				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/contact.png" /></div>
 				<div class="content-bottom-title-name">&nbsp;&nbsp;我的客服</div>
 				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
-			</div>
+			</div>-->
 		</section>
 		<nav class="mui-bar mui-bar-tab">
 			<a class="mui-tab-item mui-active" data-webview="buylist.html">
@@ -314,5 +319,11 @@
 					}
 				})
 			})(mui);
+			document.getElementById('myewm').addEventListener('tap',function(){
+				clicked('receiveewm.html', {}, 'slide-in-right');
+			})
+			document.getElementById('setting').addEventListener('tap',function(){
+				clicked('setting.html', {}, 'slide-in-right');
+			})
 		</script>
 </html>

@@ -209,7 +209,7 @@
 			<div class="top-box-item top-box-item-center">
 				<span class="top-div-span">发啥货</span>
 			</div>
-			<div class="top-box-item top-box-item-right">
+			<div class="top-box-item top-box-item-right" id="mycard">
 				<img class="bottom-div-img" src="../img/buylist/card.png" />
 			</div>
 		</header>
@@ -540,6 +540,9 @@
 		})
 		document.getElementById('ewmclass').addEventListener('tap',function(){
 			clicked('pointslist.html', {}, 'slide-in-right');
+		})
+		document.getElementById('mycard').addEventListener('tap',function(){
+			clicked('MyCard.html', {}, 'slide-in-right');
 		})
 //		if (mui.os.plus) {
 //			mui.plusReady(function() {

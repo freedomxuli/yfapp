@@ -77,6 +77,20 @@ function clicked(id, param, a, s) {
 	}
 }
 
+/*mui.plusReady(function() {
+	setTimeout(function(){
+		if(plus.audio==='undefined'){
+			mui.toast('权限没有啊');
+		}
+		var player = plus.audio.createPlayer("../resource/music.mp3");
+		player.play(function (e) {
+			console.log('播放完成后，运行代码');
+		},function (e) {
+			console.log(e.message);
+	    },false);
+	},500);
+});*/
+
 function scanedError(url){
 	//提示鸣生
 	switch (plus.os.name) { //判断设备类型

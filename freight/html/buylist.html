@@ -446,15 +446,7 @@
 				}
 			}
 		});
-		if(plus.audio==='undefined'){
-            mui.toast('权限没有啊');
-        }
-		var player = plus.audio.createPlayer("http://demo.dcloud.net.cn/test/audio/apple.mp3");
-        player.play(function (e) {
-            console.log('播放完成后，运行代码'); 
-        },function (e) {
-            console.log(e.message);
-        },false);
+
 		var salepx = 0;
 		var discountpx = 0;
 		var flowerpx = 0;
@@ -486,7 +478,6 @@
 			};
 			lnjoy.GetDataByPost(data,function(rs){
 				mui('#pullrefresh').pullRefresh().endPullupToRefresh((count > parseInt(rs.pagination.totaPage))); //参数为true代表没有更多数据了。
-				console.log("%o",rs);
 				var html = template('tpl',rs);
 				$('#wp').append(html);
 				count++;
@@ -570,11 +561,12 @@
 //			//alert($(this).data("index"));
 //			clicked('buycontent.html', {}, 'slide-in-right');
 //		})
-		document.getElementById('ewmclass').addEventListener('tap',function(){
+		/*document.getElementById('ewmclass').addEventListener('tap',function(){
 			clicked('pointslist.html', {}, 'slide-in-right');
-		})
+		})*/
 		document.getElementById('mycard').addEventListener('tap',function(){
-			clicked('MyCard.html', {}, 'slide-in-right');
+			clicked('photo.html', {}, 'slide-in-right');
+			//clicked('MyCard.html', {}, 'slide-in-right');
 		});
 //		document.getElementById('showUserPicker').addEventListener('tap',function(){
 //			
@@ -671,10 +663,42 @@
 			$('#wp').empty();
 			pullupRefresh();
 		}); 
+		function scaned(t, r, f) {
+			console.log(r);
+		}
 		if (mui.os.plus) {
 			mui.plusReady(function() {
-				mui('#pullrefresh').pullRefresh().pullupLoading();
-
+				setTimeout(function(){
+					mui('#pullrefresh').pullRefresh().pullupLoading();
+				},500);
+				var btn_scan =document.getElementById("ewmclass");
+				btn_scan.addEventListener('tap', function(e) {
+					mui.openWindow({
+						id: 'scan',
+						url: 'scan.html'
+					});
+				});
+				//index向a页面传值：
+//				if(window.WebSocket){
+//		        	var socket = new WebSocket('ws://......'); 
+//		        	// 打开Socket  
+//		        	socket.onopen = function(event) {
+//		         		// 发送一个初始化消息
+//		         		socket.send('data');
+//		        	}
+//					socket.onmessage = function(event) {
+//						var resultdata=JSON.parse(event.data);
+//						var main = plus.webview.getWebviewById("a.html");
+//						mui.fire(main,"toa",{
+//				    		data:resultdata
+//						});
+//					}
+//				}
+//				//a页面接收传值：
+//				document.addEventListener('toa', function(event) {
+//					var GetData=event.data;
+//					//业务逻辑
+//				})
 			});
 		} else {
 			mui.ready(function() {

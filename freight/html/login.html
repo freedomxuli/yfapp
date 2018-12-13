@@ -140,7 +140,7 @@
 		            //login_confirm(localStorage.getItem("mgps_UserName"), localStorage.getItem("mgps_UserPassword"), "APP");
 		        }
 
-		        loginButton.addEventListener('tap', function (event) {
+		        doc.getElementById('login').addEventListener('tap', function (event) {
 		            localStorage.setItem("mgps_UserName", UserNameBox.value);
 		            localStorage.setItem("mgps_UserPassword", UserPasswordBox.value);
 		            if (UserNameBox.value == "" || UserPasswordBox.value == "") {
@@ -155,7 +155,20 @@
 		                account: UserNameBox.value,
 		                password: UserPasswordBox.value
 		            };
-
+					var data = {
+						queryData:{
+							tradeCode:'tbbuser.selectByPrimaryKey',
+							username:'18136918998'
+						}
+					};
+					lnjoy.GetDataByPost(data,function(rs){
+						console.log('%o',rs);
+						localStorage.setItem("mgps_UserName",rs.list[0].username);
+						localStorage.setItem("mgps_UserPassword",rs.list[0].password);
+						localStorage.setItem("tuichudenglu",false);
+						localStorage.setItem("userid",rs.list[0].userid);
+						mui.back();
+					});
 		            //login_confirm(loginInfo.account, loginInfo.password, "APP");
 		            return;
 		        });

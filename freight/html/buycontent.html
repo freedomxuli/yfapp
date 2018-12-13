@@ -124,6 +124,7 @@
 				background-color: rgb(235,97,0);
 				border-radius: 0rem;
 				border: 0rem;
+				display: none;
 			}
 			.bottom-child-div-span{
 				font-size:0.8rem ;
@@ -183,7 +184,7 @@
 			</div>
 		</section>
 		<nav class="mui-bar  mui-bar-tab bottom-div">
-			<div class="bottom-child-div">
+			<!--<div class="bottom-child-div">
 				<img class="bottom-child-div-img" src="../img/buycontent/contact.png" />
 				<span class="bottom-child-div-span">客服</span>
 			</div>
@@ -193,16 +194,38 @@
 			</div>
 			<div class="bottom-child-div">
 				<img class="bottom-child-div-img" src="../img/buycontent/wsc.png" />
-				<span class="bottom-child-div-span">收藏</span>
-			</div>
+				<span class="bottom-child-div-span">关注</span>
+			</div>-->
 			<button class="bottom-button-div">
-				一键拨号
+				查货宝客服电话
 			</button>
 			<button class="bottom-button-div1">
 				立刻购买
 			</button>
 		</nav>
 	</body>
+	<script src="../js/template.min.js"></script>
 	<script src="../js/mui.min.js"></script>
+	<script src="../js/zepto.js"></script>
 	<script src="../js/app.js"></script>
+	<script>
+		mui.plusReady(function() {
+			var userid = plus.webview.currentWebview().userid;
+			var lx = plus.webview.currentWebview().lx;
+			if(lx == 1)
+				$('.bottom-button-div1').show();
+		})
+		
+		$('.bottom-button-div').click(function(){
+			var btnArray = ['取消', '呼叫'];
+			mui.confirm('4006887856', '是否呼叫查货宝客服', btnArray, function(e) {
+			    if (e.index == 1) {
+			    	      plus.device.dial('18136918998',false);
+			    }
+			 })
+		});
+		$('.bottom-button-div1').click(function(){
+			alert("购买");
+		});
+	</script>
 </html>

@@ -1,3 +1,33 @@
+var test_url = 'http://192.168.1.5:8010/api/yfq/';
+var real_url = 'http://47.110.134.105:8010/api/yfq/';
+var lnjoy = {
+	url:real_url,
+	dataType:'json',
+	type:'post',
+	timeout:10000,
+};
+lnjoy.GetDataByPost = function(data,callback){
+	//console.log('%o',data.queryData);
+	mui.ajax(lnjoy.url+data.queryData.tradeCode,{
+		data:data.queryData,
+		dataType:lnjoy.dataType,//服务器返回json格式数据
+		type:lnjoy.type,//HTTP请求类型
+		timeout:lnjoy.timeout,//超时时间设置为10秒；
+		//headers:{'Content-Type':'application/json'},	              
+		success:function(data){
+			//服务器返回响应，根据响应结果，分析是否获取成功；
+			callback(data);
+		},
+		error:function(xhr,type,errorThrown){
+			//console.log('%o',xhr);
+			//console.log('%o',type);
+			//console.log('%o',errorThrown);
+			//异常处理；
+			console.log("报错了！");
+		}
+	});
+}
+
 var _openw = null;
 var preate = {};
 function clicked(id, param, a, s) {
@@ -45,4 +75,37 @@ function clicked(id, param, a, s) {
 			preate[id] && (preate[id] = null); //兼容窗口的关闭
 		}, false);
 	}
+}
+
+function scanedError(url){
+	//提示鸣生
+	switch (plus.os.name) { //判断设备类型
+	    case "iOS":
+	    if ( plus.device.model.indexOf("iPhone") >= 0 ) {
+	        plus.device.beep();
+	        console.log = "设备蜂鸣中...";
+	    } else {
+	        console.log = "此设备不支持蜂鸣";
+	    }
+	    break;
+	    default:
+	    plus.device.beep();
+	    console.log = "设备蜂鸣中...";
+	    break;
+	}
+	var player = null;
+    var flag = false;
+     mui.plusReady(function (){
+        if(plus.audio==='undefined'){
+            mui.toast('权限没有啊');
+            return;
+        }
+        player = plus.audio.createPlayer(url);
+        player.play(function (e) {
+            console.log('播放完成后，运行代码');
+        },function (e) {
+            console.log(e.message);
+        },false);
+       
+    })
 }

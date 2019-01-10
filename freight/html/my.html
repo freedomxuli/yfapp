@@ -52,7 +52,7 @@
 				font-size: 1.2rem;
 			}
 			.top-div-img{
-				height:1rem;
+				height:1.6rem;
 				vertical-align: middle;
 			}
 			.content-title-pic{
@@ -185,10 +185,12 @@
 		</header>
 		<section>
 			<div class="content-title-pic">
-				<div class="content-title-pic-div"><img class="content-title-pic-img" src="../img/buycontent/titpic.png" /></div>
+				<div class="content-title-pic-div"><img id="headsel" class="content-title-pic-img" src="../img/head/3.jpg" /></div>
 				<div class="content-title-pic-div1">
-					<div class="content-title-pic-span">轩程物流</div>
+					<div class="content-title-pic-span" id="title"></div>
 					<div class="content-title-pic-span1">
+						<img class="content-title-pic-img1" src="../img/my/star.png" />
+						<img class="content-title-pic-img1" src="../img/my/star.png" />
 						<img class="content-title-pic-img1" src="../img/my/star.png" />
 						<img class="content-title-pic-img1" src="../img/my/star.png" />
 						<img class="content-title-pic-img1" src="../img/my/star.png" />
@@ -198,25 +200,17 @@
 		</section>
 		<section>
 			<div class="content-title-list">
-				<div class="content-title-list-div">
-					<div class="content-title-list-div-num">0</div>
-					<div class="content-title-list-div-name">收藏夹</div>
+				<div class="content-title-list-div" id='gzzxtab'>
+					<div class="content-title-list-div-num" id="gzzx">0</div>
+					<div class="content-title-list-div-name">关注的专线</div>
 				</div>
-				<div class="content-title-list-div">
-					<div class="content-title-list-div-num">0</div>
-					<div class="content-title-list-div-name">关注数</div>
+				<div class="content-title-list-div" id='qgzjtab'>
+					<div class="content-title-list-div-num" id="qgzj">0</div>
+					<div class="content-title-list-div-name">抢购的战绩</div>
 				</div>
-				<div class="content-title-list-div">
-					<div class="content-title-list-div-num">0</div>
-					<div class="content-title-list-div-name">足迹</div>
-				</div>
-				<div class="content-title-list-div">
-					<div class="content-title-list-div-num">0</div>
-					<div class="content-title-list-div-name">购买数量</div>
-				</div>
-				<div class="content-title-list-div">
-					<div class="content-title-list-div-num">0</div>
-					<div class="content-title-list-div-name">商品数量</div>
+				<div class="content-title-list-div" id='sqzetab'>
+					<div class="content-title-list-div-num" id="sqze">0</div>
+					<div class="content-title-list-div-name">省钱总额</div>
 				</div>
 			</div>
 		</section>
@@ -224,13 +218,13 @@
 			<div class="content-center-div">
 				<div class="content-center-div-child" id="myewm">
 					<img class="content-center-div-child-img" src="../img/my/collect.png" />
-					<div class="content-center-div-child-span1">我的收款码</div>
-					<div class="content-center-div-child-span2">扫一扫，收取运费券</div>
+					<div class="content-center-div-child-span1">我的二维码</div>
+					<!--<div class="content-center-div-child-span2">扫一扫，收取运费券</div>-->
 				</div>
 				<div class="content-center-div-child1" id="share">
 					<img class="content-center-div-child-img" src="../img/my/name.png" />
 					<div class="content-center-div-child-span1">我的名片</div>
-					<div class="content-center-div-child-span2">分享名片有礼</div>
+					<!--<div class="content-center-div-child-span2">分享名片有礼</div>-->
 				</div>
 			</div>
 		</section>
@@ -241,18 +235,23 @@
 			<div class="content-bottom-title">
 				我的服务
 			</div>
+			<div class="content-bottom-title" id="telephone">
+				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/contact.png" /></div>
+				<div class="content-bottom-title-name">&nbsp;&nbsp;我关注的专线</div>
+				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
+			</div>
 			<div class="content-bottom-title" id="qbClass">
 				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/cardbox.png" /></div>
 				<div class="content-bottom-title-name">&nbsp;&nbsp;券包</div>
 				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
 			</div>
-			<div class="content-bottom-title">
-				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/card.png" /></div>
+			<div class="content-bottom-title" id="moneycard">
+				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/bank.png" /></div>
 				<div class="content-bottom-title-name">&nbsp;&nbsp;钱包</div>
 				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
 			</div>
 			<div class="content-bottom-title" id="jyjl">
-				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/card.png" /></div>
+				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/collect.png" /></div>
 				<div class="content-bottom-title-name">&nbsp;&nbsp;交易记录</div>
 				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
 			</div>
@@ -266,14 +265,14 @@
 				<div class="content-bottom-title-name">&nbsp;&nbsp;授予运费券</div>
 				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
 			</div>-->
-			<div class="content-bottom-title">
+			<!--<div class="content-bottom-title">
 				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/bank.png" /></div>
 				<div class="content-bottom-title-name">&nbsp;&nbsp;银行卡</div>
 				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
-			</div>
-			<div class="content-bottom-title">
-				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/contact.png" /></div>
-				<div class="content-bottom-title-name">&nbsp;&nbsp;我的客服</div>
+			</div>-->
+			<div class="content-bottom-title" id="aboutus">
+				<div class="content-bottom-title-div"><img class="content-bottom-title-img" src="../img/my/name.png" /></div>
+				<div class="content-bottom-title-name">&nbsp;&nbsp;关于我们</div>
 				<div class="content-bottom-title-div1"><img class="content-bottom-title-img1" src="../img/my/next.png" /></div>
 			</div>
 		</section>
@@ -298,6 +297,10 @@
 		</nav>
 	</body>
 	<script src="../js/mui.min.js"></script>
+	<script src="../js/zepto.js"></script>
+	<script src="../js/reconnecting-websocket.min.js"></script>
+	<script src="../js/stomp.min.js"></script>
+	<script src="../js/sockjs.min.js"></script>
 	<script src="../js/app.js"></script>
 	<script>
 			mui.init();
@@ -314,7 +317,66 @@
 				}, function() {
 					console.log("获取分享服务列表失败");
 				});
+				document.getElementById("telephone").addEventListener('tap',function(){
+					clicked('myzxplattosale.html',{},'slide-in-right')
+//		            var phone="4006887856";
+//		            plus.device.dial(phone,false);
+		        });
+				init();
+				window.addEventListener('refresh', function(e){//执行刷新
+				 	location.reload();
+				});
+				var rainPage = 0;
+				mui.back = function() {
+					rainPage++;
+					if (rainPage>1) {
+						plus.runtime.quit();
+					} else {
+						plus.nativeUI.toast('再按一次退出应用，你会收不到提醒信息哦');
+					}
+					setTimeout(function(){
+						rainPage = 0;
+					}, 1000);
+					return false;
+				}
 			});
+			
+			function init()
+			{
+				var data_user = {
+					queryData:{
+						tradeCode:'tbbuser.wode',
+						userid:localStorage.getItem('userid')
+					}
+				};
+				console.log('%o',data_user);
+				lnjoy.GetDataByPost(data_user,function(rs){
+					console.log('%o',rs);
+					$('#gzzx').html(rs.list[0].GZCount+"家");
+					$('#qgzj').html(rs.list[0].count+"单");
+					$('#sqze').html(rs.list[0].sum+"元");
+					$('#title').html(rs.list[0].username);
+				});
+				
+				var data_userphoto = {
+					queryData:{
+						tradeCode:'tbbuserphoto.selectUserphoto',
+						userid:localStorage.getItem('userid'),
+						userphotogltype:6
+					}
+				}
+				lnjoy.GetDataByPost(data_userphoto,function(rs){
+					console.log('%o',rs);
+					if(rs.data.length>0&&rs.data[0].photoUrl)
+					{
+						$('#headsel').attr("src", rs.data[0].photoUrl);
+					}else{
+						if(localStorage.getItem('headsrc'))
+							$('#headsel').attr("src", localStorage.getItem('headsrc'));
+					}
+					//$('#title').html(rs.list[0].userxm);
+				});
+			}
 			
 			//分享链接点击事件
 			document.getElementById("share").addEventListener('tap', function() {
@@ -417,6 +479,21 @@
 			})
 			document.getElementById('qbClass').addEventListener('tap',function(){
 				clicked('MyCard.html', {}, 'slide-in-right');
+			})
+			document.getElementById('moneycard').addEventListener('tap',function(){
+				clicked('moneycard.html', {}, 'slide-in-right');
+			})
+			document.getElementById('aboutus').addEventListener('tap',function(){
+				clicked('aboutus.html', {}, 'slide-in-right');
+			})
+			document.getElementById('headsel').addEventListener('tap',function(){
+				clicked('headsel.html', {}, 'slide-in-right');
+			})
+			document.getElementById('gzzxtab').addEventListener('tap',function(){
+				clicked('gzzxtab.html', {}, 'slide-in-right');
+			})
+			document.getElementById('qgzjtab').addEventListener('tap',function(){
+				clicked('mypaylist.html', {}, 'slide-in-right');
 			})
 //			document.getElementById('smsq').addEventListener('tap',function(){
 //				clicked('smsq.html', {}, 'slide-in-right');

@@ -52,14 +52,18 @@
 			.center-list-div{
 				display:flex;
 				justify-content: center;
-				padding: 0rem 0rem 1rem 1rem;
+				padding: 0rem 1rem 0rem 1rem;
 			}
 			.center-li-content-div1{
-				flex: 4;
-				padding: 0rem 0.4rem 0rem 0rem;
+				flex: 6;
+				vertical-align: middle;
+				justify-content: center;
 			}
 			.center-li-content-div2{
 				flex: 1;
+				text-align: center;
+				justify-content: center;
+				padding: 0rem 0rem 0rem 0.5rem;
 			}
 			.center-li-content-div1-span1{
 				font-size: 0.8rem;
@@ -74,11 +78,16 @@
 			.mui-table-view li{
 				border-bottom: 1px solid #CCCCCC;
 			}
+			.center-li-content-kind2{
+				font-family: "微软雅黑";
+				font-weight:bold ;
+				color: rgb(255,0,0);
+			}
 		</style>
 	</head>
 	<body>
 		<header class="mui-bar mui-bar-nav top-box">
-			<div class="top-box-item mui-action-back">
+			<div class="top-box-item" id="closewindow">
 				<img class="top-div-img" src="../img/buycontent/back.png" />
 			</div>
 			<div class="top-box-item2 top-box-item-center">
@@ -89,123 +98,236 @@
 			<div id="pullrefresh" class="mui-scroll-wrapper center-list">
 				<div class="mui-scroll">
 					<!--数据列表-->
-					<ul class="mui-table-view mui-table-view-chevron">
-						<li class="">
-							<div class="center-list-span">
-								查货宝测试账号1-长期运费券-<span class="center-list-span-color1">412分</span>
-							</div>
-							<div class="center-list-div">
-								<div class="center-li-content-div1">
-									<div class="center-li-content-div1-span1">
-										联系电话：<span class="center-li-content-div1-tel">18136918998</span>
-									</div>
-									<div class="center-li-content-div1-span1">
-										地址：常州市新北区物流园xxx号
-									</div>
-									<div class="center-li-content-div1-span2">
-										备注：必须在对应专线使用，且每笔运费券最多只能抵扣500券，必须在2019年2月1号前使用
-									</div>
-								</div>	
-								<div class="center-li-content-div2">
-									<br />
-									<button type="button" class="mui-btn mui-btn-primary" onclick="Buypoints();">支付</button>
-								</div>	
-							</div>
-						</li>
-						<li class="">
-							<div class="center-list-span">
-								查货宝测试账号1-长期运费券-<span class="center-list-span-color1">412分</span>
-							</div>
-							<div class="center-list-div">
-								<div class="center-li-content-div1">
-									<div class="center-li-content-div1-span1">
-										联系电话：<span class="center-li-content-div1-tel">18136918998</span>
-									</div>
-									<div class="center-li-content-div1-span1">
-										地址：常州市新北区物流园xxx号
-									</div>
-									<div class="center-li-content-div1-span2">
-										备注：必须在对应专线使用，且每笔运费券最多只能抵扣500券，必须在2019年2月1号前使用
-									</div>
-								</div>	
-								<div class="center-li-content-div2">
-									<br />
-									<button type="button" class="mui-btn mui-btn-primary" onclick="Buypoints();">支付</button>
-								</div>	
-							</div>
-						</li>
-						<li class="">
-							<div class="center-list-span">
-								查货宝测试账号1-长期运费券-<span class="center-list-span-color1">412分</span>
-							</div>
-							<div class="center-list-div">
-								<div class="center-li-content-div1">
-									<div class="center-li-content-div1-span1">
-										联系电话：<span class="center-li-content-div1-tel">18136918998</span>
-									</div>
-									<div class="center-li-content-div1-span1">
-										地址：常州市新北区物流园xxx号
-									</div>
-									<div class="center-li-content-div1-span2">
-										备注：必须在对应专线使用，且每笔运费券最多只能抵扣500券，必须在2019年2月1号前使用
-									</div>
-								</div>	
-								<div class="center-li-content-div2">
-									<br />
-									<button type="button" class="mui-btn mui-btn-primary" onclick="Buypoints();">支付</button>
-								</div>	
-							</div>
-						</li>
-						<li class="">
-							<div class="center-list-span">
-								查货宝测试账号1-长期运费券-<span class="center-list-span-color1">412分</span>
-							</div>
-							<div class="center-list-div">
-								<div class="center-li-content-div1">
-									<div class="center-li-content-div1-span1">
-										联系电话：<span class="center-li-content-div1-tel">18136918998</span>
-									</div>
-									<div class="center-li-content-div1-span1">
-										地址：常州市新北区物流园xxx号
-									</div>
-									<div class="center-li-content-div1-span2">
-										备注：必须在对应专线使用，且每笔运费券最多只能抵扣500券，必须在2019年2月1号前使用
-									</div>
-								</div>	
-								<div class="center-li-content-div2">
-									<br />
-									<button type="button" class="mui-btn mui-btn-primary" onclick="Buypoints();">支付</button>
-								</div>	
-							</div>
-						</li>
+					<ul id="ul_pointlist"  class="mui-table-view mui-table-view-chevron">
+						
 					</ul>
 				</div>
 			</div>
 		</section>
 	</body>
+	<script src="../js/template.min.js"></script>
 	<script src="../js/mui.min.js"></script>
+	<script src="../js/zepto.js"></script>
+	<script src="../js/reconnecting-websocket.min.js"></script>
+	<script src="../js/stomp.min.js"></script>
+	<script src="../js/sockjs.min.js"></script>
 	<script src="../js/app.js"></script>
-	<script>
-		mui.init({
-			swipeBack:true, //启用右滑关闭功能
-			pullRefresh: {
-				container: '#pullrefresh',
-				up: {
-					contentrefresh: '正在加载...',
-					callback: pullupRefresh
+	<script type="text/html" id="pointslist">
+			<%
+				for(var i = 0;i < list.length;i++)
+				{
+					%>
+						<li class="mui-table">
+							<div class="center-list-span">
+								<%=list[i].carduserxm%>-<span class="center-list-span-color1"><%=list[i].points%>券</span>
+							</div>
+							<div class="center-list-div">
+								<div class="center-li-content-div1">
+									<div class="center-li-content-div1-span1">
+										联系电话：<span class="center-li-content-div1-tel"><%=list[i].UserTel%></span>
+									</div>
+									<div class="center-li-content-div1-span1">
+										剩余时间：<span class="center-li-content-kind2"><%=list[i].diffminute%></span>
+									</div>
+									<div class="center-li-content-div1-span1">
+										使用截止日期：<span class="center-li-content-kind2"><%=list[i].pointsendtime%></span>
+									</div>
+									<%
+										if(list[i].pointkind == 0)
+										{
+											%>
+												<div class="center-li-content-div1-span2">
+													使用说明：<span class="center-li-content-kind2">货品不限，包装不限，每票货购买和使用均不超过500运费券</span>
+												</div>
+											<%
+										}else{
+											%>
+												<div class="center-li-content-div1-span2">
+													使用说明：<%
+															if(list[i].pointkind == 0)
+															{
+																%>
+																<span class="center-li-content-kind2">货品不限，包装不限，单次购买不超过500运费券；</span>
+																<%
+															}else{
+																if(list[i].desc5 != "包装不限")
+																{
+																	if(list[i].ZhLx||list[i].PhLx)
+																	{
+																		%>
+																		<span class="center-li-content-kind2"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+																		<%
+																	}else
+																	{
+																		%>
+																		<span class="center-li-content-kind2"><%=list[i].desc1%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+																		<%
+																	}
+																}else
+																{
+																	if(list[i].ZhLx||list[i].PhLx)
+																	{
+																		%>
+																		<span class="center-li-content-kind2"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+																		<%
+																	}else
+																	{
+																		%>
+																		<span class="center-li-content-kind2"><%=list[i].desc1%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+																		<%
+																	}
+																}
+															}
+														%>
+												</div>
+											<%
+										}
+									%>
+								</div>	
+								<div class="center-li-content-div2">
+									<%if(list[i].refreshzt == 1){
+										%>
+											<button type="button" class="mui-btn mui-btn-primary">订单处理中</button>
+										<%
+									}else{
+										if(list[i].diffminute < 0)
+										{
+											%>
+												<button type="button" class="mui-btn mui-btn-primary">已失效</button>
+											<%
+										}else{
+											%>
+												<button type="button" class="mui-btn mui-btn-primary" onclick="Buypoints('<%=list[i].mycardid%>','<%=list[i].carduserid%>','<%=list[i].ordercode%>','<%=list[i].points%>','<%=list[i].carduserxm%>');">支付</button>
+											<%
+										}
+									}%>
+									
+								</div>	
+							</div>
+						</li>
+					<%
 				}
-			}
-		});
-		var count = 0;
-		/**
-		 * 上拉加载具体业务实现
-		 */
-		function pullupRefresh() {
-			mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 1));
-		}
-		function Buypoints()
-		{
-			clicked('paypoints.html', {}, 'slide-in-right');
-		}
-	</script>
+			%>
+		</script>
+		<script>
+			var ewmbs;
+			mui.plusReady(function () {
+				ewmbs = plus.webview.currentWebview().ewmbs;
+	            setTimeout(function () {
+	                mui('#pullrefresh').pullRefresh().pullupLoading();
+	            }, 500);
+
+	        });
+	        document.getElementById('closewindow').addEventListener('tap',function(event){
+				clicked('buylist.html',{ewmbs:ewmbs},'slide-in-right');
+			});
+		    mui.init({
+		        pullRefresh: {
+		            container: '#pullrefresh',
+		            up: {
+		                contentrefresh: '正在加载...',
+		                callback: pullupRefresh
+		            }
+		        }
+		        
+		    });
+		    var count = 1;
+			var pageSize = 10;
+		    /**
+			 * 上拉加载具体业务实现
+			 */
+		    function pullupRefresh() {
+		    		var data = {
+					queryData:{
+						tradeCode:'tbbmycard.mycard104',
+						currentPage:count,
+						ewmbs:ewmbs,
+						userid:localStorage.getItem('userid'),
+						status:0,
+						pageSize:pageSize
+					}
+				};
+				lnjoy.GetDataByPost(data,function(rs){
+					console.log('%o',rs);
+//					if(rs.list.length>0)
+//					{
+//						for(var i = 0;i<rs.list.length;i++)
+//						{
+//							if(rs.list[i].pointsendtime)
+//							{
+//								var date1 = new Date(rs.list[i]["pointsendtime"]);
+//								console.log(rs.list[i]["pointsendtime"]);
+//								console.log(new Date(rs.list[i]["pointsendtime"].toString()));
+//								var date2 = new Date();
+//								var date3 = date1.getTime() - date2.getTime();
+//								var days = Math.floor(date3/(24*3600*1000));
+//								var hours = date3%(24*3600*1000);
+//								var minus=date3%(3600*1000);
+//								var minutes=Math.floor(minus/(60*1000));
+//								rs.list[i]["remaintime"] = (days*24+hours)+"小时"+minutes+"分钟";
+//							}else
+//							{
+//								rs.list[i]["remaintime"] = "不限";
+//							}
+//						}
+//					}
+					for(var i = 0;i<rs.list.length;i++)
+					{
+						if(rs.list[i].hasOwnProperty('diffminute'))
+						{
+							rs.list[i]["showhour"] = parseInt(rs.list[i]["diffminute"]/60);
+							rs.list[i]["showminute"] = rs.list[i]["diffminute"]%60;
+							
+							if(parseInt(rs.list[i]["diffminute"]/60)>0)
+								rs.list[i]["diffminute"] = parseInt(rs.list[i]["diffminute"]/60)+"小时"+rs.list[i]["diffminute"]%60+"分钟";
+							else
+								rs.list[i]["diffminute"] = "已失效";
+						}else{
+							rs.list[i]["diffminute"] = "无限制";
+						}
+					}
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > parseInt(rs.pagination.totalPage))); //参数为true代表没有更多数据了。
+					var html = template('pointslist',rs);
+					$('#ul_pointlist').append(html);
+				});
+		    }
+		    function Buypoints(mycardid,carduserid,ordercode,payPoints,carduserxm)
+		    {
+		    		if(ordercode)
+		    		{
+		    			var player = plus.audio.createPlayer("_www/resource/sound.mp3");
+					player.play(function (e) {
+						
+					},function (e) {
+						console.log(e.message);
+				    },false);
+		    			var data = {
+			    			queryData:{
+			    				tradeCode:'pay',
+			    				mycardid:mycardid,
+			    				carduserid:carduserid,
+			    				ordercode:ordercode,
+			    				payPoints:parseInt(payPoints)
+			    			}
+			    		}
+			    		console.log('%o',data);
+			    		lnjoy.GetDataByPost(data,function(rs){
+			    			console.log('%o',rs);
+			    			if(rs.hasOwnProperty('success'))
+			    			{
+			    				clicked('comfirmpoints.html',{outOrderNo:ordercode,ewmbs:ewmbs},'slide-in-right');
+			    			}else
+			    			{
+			    				mui.toast('支付失败');
+			    				return;
+			    			}
+			    		});
+		    		}else
+		    		{
+		    			clicked('paypoints.html',{totalPoints:payPoints,carduserxm:carduserxm,carduserid:carduserid,mycardid:mycardid},'slide-in-right');
+		    		}
+		    		
+		    		//clicked('paypoints.html',{},'slide-in-right');
+		    }
+       </script>
 </html>

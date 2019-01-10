@@ -126,8 +126,17 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/zepto.js"></script>
+		<script src="../js/reconnecting-websocket.min.js"></script>
+		<script src="../js/stomp.min.js"></script>
+		<script src="../js/sockjs.min.js"></script>
 		<script src="../js/app.js"></script>
 		<script type="text/javascript">
+			var cid = "";
+			mui.plusReady(function(){
+				var vInfo = plus.push.getClientInfo();
+				cid = vInfo.clientid;
+			})
 		    (function ($, doc) {
 		        //检查 "登录状态/锁屏状态" 结束
 		        var UserNameBox = doc.getElementById('UserName');
@@ -151,23 +160,29 @@
 		                $.toast('请输入正确格式的手机号');
 		                return;
 		            }
-		            var loginInfo = {
-		                account: UserNameBox.value,
-		                password: UserPasswordBox.value
-		            };
-					var data = {
-						queryData:{
-							tradeCode:'tbbuser.selectByPrimaryKey',
-							username:'18136918998'
+		            var data = {
+		            		queryData:{
+							tradeCode:'login',
+							username:UserNameBox.value,
+							password:UserPasswordBox.value,
+							clientkind:2,
+							cid:cid
 						}
-					};
+		            }
 					lnjoy.GetDataByPost(data,function(rs){
 						console.log('%o',rs);
-						localStorage.setItem("mgps_UserName",rs.list[0].username);
-						localStorage.setItem("mgps_UserPassword",rs.list[0].password);
-						localStorage.setItem("tuichudenglu",false);
-						localStorage.setItem("userid",rs.list[0].userid);
-						mui.back();
+						if(rs.hasOwnProperty("success"))
+						{
+							localStorage.setItem("username", rs.data.username);
+							localStorage.setItem("userid", rs.data.userid);
+							localStorage.setItem("ewmbs", rs.data.ewmbs);
+							mui.toast('登陆成功');
+							mui.back();
+						}else
+						{
+							mui.toast('登陆失败，'+rs.details);
+							return;
+						}
 					});
 		            //login_confirm(loginInfo.account, loginInfo.password, "APP");
 		            return;
@@ -178,10 +193,10 @@
 		        regButton.addEventListener('tap', function (event) {
 		            //document.location.href = "MGps_reg.html";
 		            clicked('ZhuCe.html', {}, 'slide-in-right');
-		        }, false);
+		        });
 		        forgetButton.addEventListener('tap', function (event) {
 		            clicked('forgetpassword.html', {}, 'slide-in-right');
-		        }, false);
+		        });
 		        window.addEventListener("show", function (e) {
 		            doc.getElementById('UserName').value = '';
 		            doc.getElementById('UserPassword').value = '';

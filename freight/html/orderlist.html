@@ -245,7 +245,7 @@
 							未支付
 						</a>
 						<a class="mui-control-item" href="#item3mobile">
-							待评价
+							已失效
 						</a>
 						<a class="mui-control-item" href="#item4mobile">
 							已完成
@@ -256,94 +256,8 @@
 					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<ul class="mui-table-view">
-									<li class="">
-										<div class="center-li-title">
-											<div class="center-li-title-div1"><img class="center-li-title-img1" src="../img/buylist/zxbs.png" />&nbsp;<span>轩程物流</span>&nbsp;&nbsp;<img class="center-li-title-img2" src="../img/buycontent/next.png" /></div>
-											<div class="center-li-title-div2"> <span>未支付</span> </div>
-										</div>
-										<div class="center-li-content">
-											<div class="center-li-content-div1">
-												<img class="center-li-content-img1" src="../img/buylist/timg.png"/>
-											</div>
-											<div class="center-li-content-div2">
-												<div class="center-li-content-span1">
-													<span class="center-li-content-kind1">长期券&nbsp;</span><span class="center-li-content-kind2">7折&nbsp;</span>
-												</div>
-												<div class="center-li-content-span1">
-													线路：常州-长沙、湖南全境、湖北全境
-												</div>
-												<div class="center-li-content-span2">
-													订单号：20181030043300209
-												</div>
-											</div>
-											<div class="center-li-content-div3">
-												<div>¥500</div>
-												<div>x1</div>
-											</div>	
-										</div>
-										<div class="center-li-content-button">
-											<button type="button" class="mui-btn mui-btn-primary" onclick="Buypoints();">立刻支付</button>
-										</div>
-									</li>
-									<li class="">
-										<div class="center-li-title">
-											<div class="center-li-title-div1"><img class="center-li-title-img1" src="../img/buylist/zxbs.png" />&nbsp;<span>轩程物流</span>&nbsp;&nbsp;<img class="center-li-title-img2" src="../img/buycontent/next.png" /></div>
-											<div class="center-li-title-div3"> <span>待评价</span> </div>
-										</div>
-										<div class="center-li-content">
-											<div class="center-li-content-div1">
-												<img class="center-li-content-img1" src="../img/buylist/timg.png"/>
-											</div>
-											<div class="center-li-content-div2">
-												<div class="center-li-content-span1">
-													<span class="center-li-content-kind1">短期券&nbsp;</span><span class="center-li-content-kind2">重货&nbsp;7折&nbsp;</span><span class="center-li-content-kind3">(有效期还有30天)</span>
-												</div>
-												<div class="center-li-content-span1">
-													线路：常州-长沙、湖南全境、湖北全境
-												</div>
-												<div class="center-li-content-span2">
-													订单号：20181030043300209
-												</div>
-											</div>
-											<div class="center-li-content-div3">
-												<div>¥500</div>
-												<div>x1</div>
-											</div>	
-										</div>
-										<div class="center-li-content-button">
-											<button type="button" class="mui-btn mui-btn-primary" onclick="Buypoints();">立刻评价</button>
-										</div>
-									</li>
-									<li class="">
-										<div class="center-li-title">
-											<div class="center-li-title-div1"><img class="center-li-title-img1" src="../img/buylist/zxbs.png" />&nbsp;<span>轩程物流</span>&nbsp;&nbsp;<img class="center-li-title-img2" src="../img/buycontent/next.png" /></div>
-											<div class="center-li-title-div2"> <span>未支付</span> </div>
-										</div>
-										<div class="center-li-content">
-											<div class="center-li-content-div1">
-												<img class="center-li-content-img1" src="../img/buylist/timg.png"/>
-											</div>
-											<div class="center-li-content-div2">
-												<div class="center-li-content-span1">
-													<span class="center-li-content-kind1">通用券&nbsp;</span><span class="center-li-content-kind2">7折&nbsp;</span><span class="center-li-content-kind3">(有效期还有30天)</span>
-												</div>
-												<div class="center-li-content-span1">
-													线路：常州-长沙、湖南全境、湖北全境
-												</div>
-												<div class="center-li-content-span2">
-													订单号：20181030043300209
-												</div>
-											</div>
-											<div class="center-li-content-div3">
-												<div>¥500</div>
-												<div>x1</div>
-											</div>	
-										</div>
-										<div class="center-li-content-button">
-											<button type="button" class="mui-btn mui-btn-danger" onclick="Buypoints();">再次购买</button>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="mui-btn mui-btn-xs" onclick="Buypoints();">已失效</button>
-										</div>
-									</li>
+								<ul class="mui-table-view" id="ul_total">
+									
 								</ul>
 							</div>
 						</div>
@@ -351,10 +265,8 @@
 					<div id="item2mobile" class="mui-slider-item mui-control-content">
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<ul class="mui-table-view">
-									<li class="mui-table-view-cell">
-										第2个选项卡子项-1
-									</li>
+								<ul class="mui-table-view" id="ul_nopay">
+									
 								</ul>
 							</div>
 						</div>
@@ -362,10 +274,8 @@
 					<div id="item3mobile" class="mui-slider-item mui-control-content">
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<ul class="mui-table-view">
-									<li class="mui-table-view-cell">
-										第3个选项卡子项-1
-									</li>
+								<ul class="mui-table-view" id="ul_noeffect">
+									
 								</ul>
 							</div>
 						</div>
@@ -373,10 +283,8 @@
 					<div id="item4mobile" class="mui-slider-item mui-control-content">
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<ul class="mui-table-view">
-									<li class="mui-table-view-cell">
-										第4个选项卡子项-1
-									</li>
+								<ul class="mui-table-view" id="ul_finish">
+									
 								</ul>
 							</div>
 						</div>
@@ -398,9 +306,527 @@
 				<div class="bottom-div-span-1">我的</div>
 			</a>
 		</nav>
+		<script src="../js/template.min.js"></script>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/zepto.js"></script>
+		<script src="../js/reconnecting-websocket.min.js"></script>
+		<script src="../js/stomp.min.js"></script>
+		<script src="../js/sockjs.min.js"></script>
+		<script src="../js/app.js"></script>
 		<script src="../js/mui.pullToRefresh.js"></script>
 		<script src="../js/mui.pullToRefresh.material.js"></script>
+		<script id="all_list" type="text/html">
+			<%
+				for(var i = 0; i < list.length; i++)
+				{
+					%>
+					<li class="">
+						<div class="center-li-title">
+							<div class="center-li-title-div1"><img class="center-li-title-img1" src="../img/buylist/zxbs.png" />&nbsp;<span><%=list[i].saleuserxm%></span>&nbsp;&nbsp;<img class="center-li-title-img2" src="../img/buycontent/next.png" /></div>
+							<div class="center-li-title-div2"> <span>
+								<%
+									if(list[i].status == 1)
+									{
+										%>已失效<%
+									}else{
+										if(list[i].zhifuzt == 1)
+										{
+											%>已支付<%
+										}else
+										{
+											%>未支付<%
+										}
+									}
+								%>
+							</span> </div>
+						</div>
+						<div class="center-li-content">
+							<div class="center-li-content-div1">
+								<%
+									if(list[i].avatarUrl)
+									{
+										%>
+											<img class="center-li-content-img1" src="<%=list[i].avatarUrl%>"/>
+										<%
+									}else{
+										%>
+											<img class="center-li-content-img1" src="../img/buylist/timg.png"/>
+										<%
+									}
+								%>
+							</div>
+							<div class="center-li-content-div2">
+								<div class="center-li-content-span1">
+									<span class="center-li-content-kind1">运费券&nbsp;</span><span class="center-li-content-kind2"><%=list[i].discountmemo%>&nbsp;</span><span class="center-li-content-kind2"><%=list[i].points%>券&nbsp;</span>
+								</div>
+								<div class="center-li-content-span1">
+									线路：<%=list[i].ToRoute%>
+								</div>
+								<div class="center-li-content-span2">
+									订单号：<%=list[i].ordercode%>
+								</div>
+								<div class="center-li-content-span2">
+									下单日期：<%=list[i].addtime%>
+								</div>
+								<div class="center-li-content-span2">
+									使用截止日期：<span class="center-li-content-kind2"><%=list[i].pointsendtime%></span>
+								</div>
+								<div class="center-li-content-span2">
+									使用说明：
+									<%
+										if(list[i].pointkind == 0)
+										{
+											%>
+											<span class="center-li-content-kind2">货品不限，包装不限，单次购买不超过500运费券；</span>
+											<%
+										}else{
+											if(list[i].desc5 != "包装不限")
+											{
+												if(list[i].ZhLx||list[i].PhLx)
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}else
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}
+											}else
+											{
+												if(list[i].ZhLx||list[i].PhLx)
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}else
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}
+											}
+										}
+									%>
+								</div>
+							</div>
+							<div class="center-li-content-div3">
+								<div>¥<%=list[i].money%></div>
+								<div>x1</div>
+							</div>
+						</div>
+						<div class="center-li-content-button">
+							<%
+									if(list[i].status == 1)
+									{
+										%><button type="button" class="mui-btn mui-btn-xs">已失效</button><%
+									}else{
+										if(list[i].zhifuzt == 1)
+										{
+											
+										}else
+										{
+											if(list[i].refreshzt == 1)
+											{
+												%><button type="button" class="mui-btn mui-btn-primary">订单处理中</button><%
+											}else
+											{
+												%><button type="button" class="mui-btn mui-btn-primary" onclick="Buypoints();">立刻支付</button><%
+											}
+										}
+									}
+								%>
+						</div>
+					</li>
+					<%
+				}
+			%>
+		</script>
+		<script id="nopay_list" type="text/html">
+			<%
+				for(var i = 0; i < list.length; i++)
+				{
+					%>
+					<li class="">
+						<div class="center-li-title">
+							<div class="center-li-title-div1"><img class="center-li-title-img1" src="../img/buylist/zxbs.png" />&nbsp;<span><%=list[i].saleuserxm%></span>&nbsp;&nbsp;<img class="center-li-title-img2" src="../img/buycontent/next.png" /></div>
+							<div class="center-li-title-div2"> <span>
+								<%
+									if(list[i].status == 1)
+									{
+										%>已失效<%
+									}else{
+										if(list[i].zhifuzt == 1)
+										{
+											%>已支付<%
+										}else
+										{
+											%>未支付<%
+										}
+									}
+								%>
+							</span> </div>
+						</div>
+						<div class="center-li-content">
+							<div class="center-li-content-div1">
+								<%
+									if(list[i].avatarUrl)
+									{
+										%>
+											<img class="center-li-content-img1" src="<%=list[i].avatarUrl%>"/>
+										<%
+									}else{
+										%>
+											<img class="center-li-content-img1" src="../img/buylist/timg.png"/>
+										<%
+									}
+								%>
+							</div>
+							<div class="center-li-content-div2">
+								<div class="center-li-content-span1">
+									<span class="center-li-content-kind1">运费券&nbsp;</span><span class="center-li-content-kind2"><%=list[i].discountmemo%>&nbsp;</span><span class="center-li-content-kind2"><%=list[i].points%>券&nbsp;</span>
+								</div>
+								<div class="center-li-content-span1">
+									线路：<%=list[i].ToRoute%>
+								</div>
+								<div class="center-li-content-span2">
+									订单号：<%=list[i].ordercode%>
+								</div>
+								<div class="center-li-content-span2">
+									下单日期：<%=list[i].addtime%>
+								</div>
+								<div class="center-li-content-span2">
+									使用截止日期：<span class="center-li-content-kind2"><%=list[i].pointsendtime%></span>
+								</div>
+								<div class="center-li-content-span2">
+									使用说明：
+									<%
+										if(list[i].pointkind == 0)
+										{
+											%>
+											<span class="center-li-content-kind2">货品不限，包装不限，单次购买不超过500运费券；</span>
+											<%
+										}else{
+											if(list[i].desc5 != "包装不限")
+											{
+												if(list[i].ZhLx||list[i].PhLx)
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}else
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}
+											}else
+											{
+												if(list[i].ZhLx||list[i].PhLx)
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}else
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}
+											}
+										}
+									%>
+								</div>
+							</div>
+							<div class="center-li-content-div3">
+								<div>¥<%=list[i].money%></div>
+								<div>x1</div>
+							</div>
+						</div>
+						<div class="center-li-content-button">
+							<%
+									if(list[i].status == 1)
+									{
+										%><button type="button" class="mui-btn mui-btn-xs">已失效</button><%
+									}else{
+										if(list[i].zhifuzt == 1)
+										{
+											
+										}else
+										{
+											if(list[i].refreshzt == 1)
+											{
+												%><button type="button" class="mui-btn mui-btn-primary">订单处理中</button><%
+											}else
+											{
+												%><button type="button" class="mui-btn mui-btn-primary" onclick="Buypoints();">立刻支付</button><%
+											}
+										}
+									}
+								%>
+						</div>
+					</li>
+					<%
+				}
+			%>
+		</script>
+		<script id="finish_list" type="text/html">
+			<%
+				for(var i = 0; i < list.length; i++)
+				{
+					%>
+					<li class="">
+						<div class="center-li-title">
+							<div class="center-li-title-div1"><img class="center-li-title-img1" src="../img/buylist/zxbs.png" />&nbsp;<span><%=list[i].saleuserxm%></span>&nbsp;&nbsp;<img class="center-li-title-img2" src="../img/buycontent/next.png" /></div>
+							<div class="center-li-title-div2"> <span>
+								<%
+									if(list[i].status == 1)
+									{
+										%>已失效<%
+									}else{
+										if(list[i].zhifuzt == 1)
+										{
+											%>已支付<%
+										}else
+										{
+											%>未支付<%
+										}
+									}
+								%>
+							</span> </div>
+						</div>
+						<div class="center-li-content">
+							<div class="center-li-content-div1">
+								<%
+									if(list[i].avatarUrl)
+									{
+										%>
+											<img class="center-li-content-img1" src="<%=list[i].avatarUrl%>"/>
+										<%
+									}else{
+										%>
+											<img class="center-li-content-img1" src="../img/buylist/timg.png"/>
+										<%
+									}
+								%>
+							</div>
+							<div class="center-li-content-div2">
+								<div class="center-li-content-span1">
+									<span class="center-li-content-kind1">运费券&nbsp;</span><span class="center-li-content-kind2"><%=list[i].discountmemo%>&nbsp;</span><span class="center-li-content-kind2"><%=list[i].points%>券&nbsp;</span>
+								</div>
+								<div class="center-li-content-span1">
+									线路：<%=list[i].ToRoute%>
+								</div>
+								<div class="center-li-content-span2">
+									订单号：<%=list[i].ordercode%>
+								</div>
+								<div class="center-li-content-span2">
+									下单日期：<%=list[i].addtime%>
+								</div>
+								<div class="center-li-content-span2">
+									使用截止日期：<span class="center-li-content-kind2"><%=list[i].pointsendtime%></span>
+								</div>
+								<div class="center-li-content-span2">
+									使用说明：
+									<%
+										if(list[i].pointkind == 0)
+										{
+											%>
+											<span class="center-li-content-kind2">货品不限，包装不限，单次购买不超过500运费券；</span>
+											<%
+										}else{
+											if(list[i].desc5 != "包装不限")
+											{
+												if(list[i].ZhLx||list[i].PhLx)
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}else
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}
+											}else
+											{
+												if(list[i].ZhLx||list[i].PhLx)
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}else
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}
+											}
+										}
+									%>
+								</div>
+							</div>
+							<div class="center-li-content-div3">
+								<div>¥<%=list[i].money%></div>
+								<div>x1</div>
+							</div>
+						</div>
+						<div class="center-li-content-button">
+							<%
+									if(list[i].status == 1)
+									{
+										%><button type="button" class="mui-btn mui-btn-xs">已失效</button><%
+									}else{
+										if(list[i].zhifuzt == 1)
+										{
+											
+										}else
+										{
+											if(list[i].refreshzt == 1)
+											{
+												%><button type="button" class="mui-btn mui-btn-primary">订单处理中</button><%
+											}else
+											{
+												%><button type="button" class="mui-btn mui-btn-primary" onclick="Buypoints();">立刻支付</button><%
+											}
+										}
+									}
+								%>
+						</div>
+					</li>
+					<%
+				}
+			%>
+		</script>
+		<script id="noeffect_list" type="text/html">
+			<%
+				for(var i = 0; i < list.length; i++)
+				{
+					%>
+					<li class="">
+						<div class="center-li-title">
+							<div class="center-li-title-div1"><img class="center-li-title-img1" src="../img/buylist/zxbs.png" />&nbsp;<span><%=list[i].saleuserxm%></span>&nbsp;&nbsp;<img class="center-li-title-img2" src="../img/buycontent/next.png" /></div>
+							<div class="center-li-title-div2"> <span>
+								<%
+									if(list[i].status == 1)
+									{
+										%>已失效<%
+									}else{
+										if(list[i].zhifuzt == 1)
+										{
+											%>已支付<%
+										}else
+										{
+											%>未支付<%
+										}
+									}
+								%>
+							</span> </div>
+						</div>
+						<div class="center-li-content">
+							<div class="center-li-content-div1">
+								<%
+									if(list[i].avatarUrl)
+									{
+										%>
+											<img class="center-li-content-img1" src="<%=list[i].avatarUrl%>"/>
+										<%
+									}else{
+										%>
+											<img class="center-li-content-img1" src="../img/buylist/timg.png"/>
+										<%
+									}
+								%>
+							</div>
+							<div class="center-li-content-div2">
+								<div class="center-li-content-span1">
+									<span class="center-li-content-kind1">运费券&nbsp;</span><span class="center-li-content-kind2"><%=list[i].discountmemo%>&nbsp;</span><span class="center-li-content-kind2"><%=list[i].points%>券&nbsp;</span>
+								</div>
+								<div class="center-li-content-span1">
+									线路：<%=list[i].ToRoute%>
+								</div>
+								<div class="center-li-content-span2">
+									订单号：<%=list[i].ordercode%>
+								</div>
+								<div class="center-li-content-span2">
+									下单日期：<%=list[i].addtime%>
+								</div>
+								<div class="center-li-content-span2">
+									使用截止日期：<span class="center-li-content-kind2"><%=list[i].pointsendtime%></span>
+								</div>
+								<div class="center-li-content-span2">
+									使用说明：
+									<%
+										if(list[i].pointkind == 0)
+										{
+											%>
+											<span class="center-li-content-kind2">货品不限，包装不限，单次购买不超过500运费券；</span>
+											<%
+										}else{
+											if(list[i].desc5 != "包装不限")
+											{
+												if(list[i].ZhLx||list[i].PhLx)
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}else
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}
+											}else
+											{
+												if(list[i].ZhLx||list[i].PhLx)
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}else
+												{
+													%>
+													<span class="center-li-content-kind2"><%=list[i].desc1%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}
+											}
+										}
+									%>
+								</div>
+							</div>
+							<div class="center-li-content-div3">
+								<div>¥<%=list[i].money%></div>
+								<div>x1</div>
+							</div>
+						</div>
+						<div class="center-li-content-button">
+							<%
+									if(list[i].status == 1)
+									{
+										%><button type="button" class="mui-btn mui-btn-xs">已失效</button><%
+									}else{
+										if(list[i].zhifuzt == 1)
+										{
+											
+										}else
+										{
+											if(list[i].refreshzt == 1)
+											{
+												%><button type="button" class="mui-btn mui-btn-primary">订单处理中</button><%
+											}else
+											{
+												%><button type="button" class="mui-btn mui-btn-primary" onclick="Buypoints();">立刻支付</button><%
+											}
+										}
+									}
+								%>
+						</div>
+					</li>
+					<%
+				}
+			%>
+		</script>
 		<script>
 			mui.init();
 			(function($) {
@@ -411,7 +837,26 @@
 					indicators: true, //是否显示滚动条
 					deceleration:deceleration
 				});
-				$.ready(function() {
+				
+				$.plusReady(function() {
+					var rainPage = 0;
+					mui.back = function() {
+						rainPage++;
+						if (rainPage>1) {
+							plus.runtime.quit();
+						} else {
+							plus.nativeUI.toast('再按一次退出应用，你会收不到提醒信息哦');
+						}
+						setTimeout(function(){
+							rainPage = 0;
+						}, 1000);
+						return false;
+					}
+					var count1 = 1;
+					var count2 = 1;
+					var count3 = 1;
+					var count4 = 1;
+					var pageSize = 10;
 					//循环初始化所有下拉刷新，上拉加载。
 					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
 						$(pullRefreshEl).pullToRefresh({
@@ -420,15 +865,86 @@
 									var self = this;
 									setTimeout(function() {
 										var ul = self.element.querySelector('.mui-table-view');
-										ul.appendChild(createFragment(ul, index, 5));
-										self.endPullUpToRefresh();
-									}, 1000);
-								}
+										createFragment(self, ul, index, pageSize);
+									}, 500);
+								},
+								contentnomore: '没有更多数据了',
+								auto: true
 							}
 						});
 					});
-					var createFragment = function(ul, index, count, reverse) {
-						return document.createDocumentFragment();
+					var createFragment = function(self, ul, index, count, reverse) {
+						if(index == 0)
+						{
+							var data = {
+								queryData:{
+									tradeCode:'tbborder.myOrder104',
+									currentPage:count1,
+									buyuserid:localStorage.getItem('userid'),
+									pageSize:pageSize
+								}
+							};
+							lnjoy.GetDataByPost(data,function(rs){
+								console.log('%o',rs);
+								self.endPullUpToRefresh((++count1 > parseInt(rs.pagination.totalPage)));
+								var html = template('all_list',rs);
+								document.getElementById("ul_total").innerHTML+=html;
+							});
+						}else if(index == 1)
+						{
+							var data = {
+								queryData:{
+									tradeCode:'tbborder.myOrder104',
+									currentPage:count2,
+									zhifuzt:0,
+									status:0,
+									buyuserid:localStorage.getItem('userid'),
+									pageSize:pageSize
+								}
+							};
+							lnjoy.GetDataByPost(data,function(rs){
+								console.log('%o',rs);
+								self.endPullUpToRefresh((++count2 > parseInt(rs.pagination.totalPage)));
+								var html = template('nopay_list',rs);
+								document.getElementById("ul_nopay").innerHTML+=html;
+							});
+						}else if(index == 2)
+						{
+							var data = {
+								queryData:{
+									tradeCode:'tbborder.myOrder104',
+									currentPage:count3,
+									zhifuzt:0,
+									status:1,
+									buyuserid:localStorage.getItem('userid'),
+									pageSize:pageSize
+								}
+							};
+							lnjoy.GetDataByPost(data,function(rs){
+								console.log('%o',rs);
+								self.endPullUpToRefresh((++count3 > parseInt(rs.pagination.totalPage)));
+								var html = template('noeffect_list',rs);
+								document.getElementById("ul_noeffect").innerHTML+=html;
+							});
+						}else if(index == 3)
+						{
+							var data = {
+								queryData:{
+									tradeCode:'tbborder.myOrder104',
+									currentPage:count4,
+									zhifuzt:1,
+									status:0,
+									buyuserid:localStorage.getItem('userid'),
+									pageSize:pageSize
+								}
+							};
+							lnjoy.GetDataByPost(data,function(rs){
+								console.log('%o',rs);
+								self.endPullUpToRefresh((++count4 > parseInt(rs.pagination.totalPage)));
+								var html = template('finish_list',rs);
+								document.getElementById("ul_finish").innerHTML+=html;
+							});
+						}
 //						var length = ul.querySelectorAll('li').length;
 //						var fragment = document.createDocumentFragment();
 //						var li;
@@ -474,6 +990,25 @@
 					}
 				})
 			})(mui);
+			
+			function Buypoints(expireDate,money,ordercode)
+			{
+//				var options = {
+//					cover: false
+//				};
+//				var str = "您关注的专线又上架运费券啦,快来抢购哦";
+//				plus.push.createMessage(str, "LocalMSG", options);
+//				if (plus.os.name == "iOS") {
+//					console.log('*如果无法创建消息，请到"设置"->"通知"中配置应用在通知中心显示!');
+//				}
+//				var player = plus.audio.createPlayer("../resource/buy.mp3");
+//				player.play(function (e) {
+//					console.log('播放完成后，运行代码');
+//				},function (e) {
+//					console.log(e.message);
+//			    },false);
+				//clicked('paymoney.html',{expireDate:expireDate,amount:parseFloat(money)*100,outOrderNo:ordercode},'slide-in-right');                            			
+			}
 		</script>
 	</body>
 

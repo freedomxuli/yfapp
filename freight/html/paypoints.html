@@ -78,22 +78,97 @@
 		</header>
 		<section>
 			<div class="center-list-span">
-				查货宝测试账号1-长期运费券-<span class="center-list-span-color1">412分</span>
+				<span id="carduserxm"></span>-<span class="center-list-span-color1"><span id="totalPoints"></span>运费券</span>
 			</div>
 			<div class="mui-input-row">
 				<label>支付运费券</label>
-				<input type="tel" class="mui-input-clear" placeholder="请输入大于50的整数">
+				<input type="tel" id="GivePoints" class="mui-input-clear" placeholder="请输入大于50的整数">
 			</div>
 			<div class="center-list-memo">
 				*仅用于查货宝平台支付，且单次不可超过500券
 			</div>
 			<div class="center-list-button">
-				<button type="button" class="mui-btn mui-btn-primary center-list-button">
-					扫码支付
+				<button id="confirmpay" type="button" class="mui-btn mui-btn-primary center-list-button">
+					确认支付
 				</button>
 			</div>
 		</section>
 	</body>
 	<script src="../js/mui.min.js"></script>
+	<script src="../js/zepto.js"></script>
+	<script src="../js/reconnecting-websocket.min.js"></script>
+	<script src="../js/stomp.min.js"></script>
+	<script src="../js/sockjs.min.js"></script>
 	<script src="../js/app.js"></script>
+	<script>
+		var totalPoints;
+		var carduserxm;
+		var carduserid;
+		var mycardid;
+		mui.plusReady(function () {
+			totalPoints = plus.webview.currentWebview().totalPoints;
+			carduserxm = plus.webview.currentWebview().carduserxm;
+			carduserid = plus.webview.currentWebview().carduserid;
+			mycardid = plus.webview.currentWebview().mycardid;
+			$('#carduserxm').html(carduserxm);
+			var data_init = {
+				queryData:{
+					tradeCode:'tbbmycard.selectByPrimaryKey',
+					mycardid:mycardid
+				}
+			}
+			lnjoy.GetDataByPost(data_init,function(rs){
+				if(rs.list.length > 0)
+				{
+					totalPoints = rs.list[0].points;
+					$('#totalPoints').html(rs.list[0].points);
+				}
+			})
+			
+			document.getElementById('confirmpay').addEventListener('tap',function(event){
+				 var ex = /^\d+$/;
+		        if (ex.test($("#GivePoints").val())) {
+		            if (parseInt($("#GivePoints").val()) >= 1 && parseInt($("#GivePoints").val()) <= totalPoints) {
+		            		var btnArray = ['取消', '确认'];
+						mui.confirm('是否确认付券？', '提醒', btnArray, function(e) {
+							if (e.index == 1) {
+//								var player = plus.audio.createPlayer("_www/resource/sound.mp3");
+//								player.play(function (e) {
+//									
+//								},function (e) {
+//									console.log(e.message);
+//							    },false);
+								var data = {
+				                		queryData:{
+				                			tradeCode:'payWx',
+				                			payPoints:parseInt($("#GivePoints").val()),
+				                			payuserid:localStorage.getItem('userid'),
+				                			receiveuserid:carduserid,
+				                			carduserid:carduserid,
+				                			mycardid:mycardid
+				                		}
+				                }
+				                console.log('%o',data);
+				                lnjoy.GetDataByPost(data,function(rs){
+				                		if(rs.hasOwnProperty("success"))
+				                		{
+				                			mui.toast("支付成功");
+				                			mui.back();
+				                		}else
+				                		{
+				                			mui.toast(rs.details);
+				                			return;
+				                		}
+				                })
+							}
+						})
+		            } else {
+		                mui.alert("请填入大于1，且不能超过可支付总额");//且小于500的整数
+		            }
+		        } else {
+		            mui.alert("请填入整数");
+		        }
+			});
+        });
+	</script>
 </html>

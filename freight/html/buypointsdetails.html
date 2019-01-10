@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>购买运费券</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style>
+			.top-box{
+				display: flex;
+				flex-direction: row;
+				align-items:center;
+				background-color: #0078B9;
+			}
+			.top-box-item{
+				flex: 1;
+			}
+			.top-box-item2{
+				flex: 1.7;
+			}
+			.top-box-item-left{
+				text-align: left;
+			}
+			.top-box-item-center{
+				text-align: left;
+			}
+			.top-div-span{
+				color: #FFFFFF;
+				font-weight: bold;
+				font-size: 1.2rem;
+			}
+			.top-div-img{
+				height:1rem;
+				vertical-align: middle;
+			}
+			.font-color-blue{
+				color:#0078B9;
+				font-size: 0.8rem;
+			}
+			.checkbox-class{
+				color:blue;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav top-box">
+			<div class="top-box-item mui-action-back">
+				<img class="top-div-img" src="../img/buycontent/back.png" />
+			</div>
+			<div class="top-box-item2 top-box-item-center">
+				<span class="top-div-span">购买运费券</span>
+			</div>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+                <br />
+				<h4 id="title"><font style="color:#007aff;" id=""></font>&nbsp;&nbsp;<font style="color:red;">券&nbsp;&nbsp;折</font>&nbsp;&nbsp;<font style="color:#007aff;">运费券</font></h4>
+                <br />
+				<!--<p>
+					每票货物最高可抵扣500分。
+				</p>-->
+                <p id="usememo" style="color:red;">
+                    请输入大于50，且小于等于500的数量，单次用多少买多少
+				</p>
+                <br />
+                <div class="mui-input-row">
+					<input id="points" type="number" class="mui-input-clear" placeholder="填写需要购买的运费券">
+				</div>
+                <h4 style="color:#007aff;">
+                    需要支付金额：¥<span id="showmoney">0</span>
+				</h4>
+                <br />
+                <button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="Pay" onclick="Pay();">确认购买</button>
+                <button type="button" class="mui-btn mui-btn-danger mui-btn-block" id="Cancel" onclick="Cancel();">取消购买</button>
+                <input id = "checkbox-class" class="checkbox-class" name="checkbox" value="1" type="checkbox" checked>
+				<span id="xy" class="font-color-blue">《“发啥货”软件用户购买及使用协议》</span>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/zepto.js"></script>
+	<script src="../js/reconnecting-websocket.min.js"></script>
+	<script src="../js/stomp.min.js"></script>
+	<script src="../js/sockjs.min.js"></script>
+    <script src="../js/app.js"></script>
+	<script>
+		var maxpoints = 0;
+    		var discount = 0;
+    		var plattosaleid = "";
+    		var saleuserid = "";
+    		var money = 0;
+    		var discount = 0;
+    		var pointkind = 0;
+	    mui.plusReady(function () {
+	    		plattosaleid = plus.webview.currentWebview().plattosaleid;
+	    		var data = {
+				queryData:{
+					tradeCode:'tbbplattosale.selectPlattosale104',
+					plattosaleid:plattosaleid
+				}
+	    		}
+	    		lnjoy.GetDataByPost(data,function(rs){
+	    			console.log('%o',rs);
+	    			maxpoints = rs.list[0].points;
+	    			discount = rs.list[0].discount;
+	    			saleuserid = rs.list[0].userid;
+	    			if(rs.list[0].pointkindname == "查货宝平台券")
+	    				$('#usememo').html("<div>1、输入券额大于50，且小于等于500的数量，此劵购买和使用额度上限为500</div><div>2、此劵不可拆分使用，单次买多少用多少</div><div>3、此劵只可用于新业务抵扣</div>");
+	    			else
+	    				$('#usememo').html("<div>1、输入券额大于50，此劵购买和使用额度无上限</div><div>2、此劵不可拆分使用，单次买多少用多少</div><div>3、此劵只可用于新业务抵扣</div>");
+	    			$('#title').html('<font style="color:#007aff;">'+rs.list[0].UserXM+'</font>&nbsp;&nbsp;<font style="color:red;">'+rs.list[0].points+'券&nbsp;&nbsp;'+rs.list[0].discountmemo+'</font>&nbsp;&nbsp;<font style="color:#007aff;">运费券</font>');
+	    		})
+	        document.getElementById('points').addEventListener('keyup',function(event){
+	        		if(/^\d+$/.test(document.getElementById('points').value))
+	        		{
+	        			$('#showmoney').html((parseInt($('#points').val())*discount).toFixed(2));
+	        			money = (parseInt($('#points').val())*discount).toFixed(2);
+	        		}else
+	        		{
+	        			mui.toast('请输入整数');
+	        			return;
+	        		}
+	        });
+	    });
+	    
+	    document.getElementById('xy').addEventListener('tap',function(event){
+	    		 clicked('payxy.html',{},'slide-in-right');
+	    })
+
+	    function Pay()
+	    {
+	        if ($("#points").val()) {
+	            if (plattosaleid) {
+	                var ex = /^\d+$/;
+	                if (ex.test($("#points").val())) {
+	                    if (maxpoints >= 50) {
+	                        if (parseInt($("#points").val()) >= 50) {
+	                            var data = {
+	                            		queryData:{
+	                            			tradeCode:'buy',
+	                            			plattosaleid:plattosaleid,
+	                            			points:parseInt($("#points").val()),
+	                            			pointkind:pointkind,
+	                            			buyuserid:localStorage.getItem('userid'),
+	                            			saleuserid:saleuserid,
+	                            			money:money,
+	                            			discount:discount,
+	                            			returnSelect:'null'
+	                            		}
+	                            }
+	                            console.log('%o',data);
+	                            lnjoy.GetDataByPost(data,function(rs){
+	                            		console.log('%o',rs);
+	                            		if(rs.hasOwnProperty('success'))
+	                            		{
+	                            			var data1 = {
+	                            				queryData:{
+	                            					tradeCode:'startrefresh',
+	                            					ordercode:rs.ordercode
+	                            				}
+	                            			}
+	                            			lnjoy.GetDataByPost(data1,function(rs1)
+	                            			{
+	                            				console.log('%o',rs1);
+	                            				if(rs1.hasOwnProperty("success"))
+	                            				{
+//	                            					var player = plus.audio.createPlayer("_www/resource/sound.mp3");
+//												player.play(function (e) {
+//													//sendsocket(localStorage.getItem('userid'),saleuserid,"购买"); 
+//	                            						
+//												},function (e) {
+//													console.log(e.message);
+//											    },false);
+			                            			clicked('paymoney.html',{expireDate:rs.expireDate,amount:parseFloat(money)*100,outOrderNo:rs.ordercode},'slide-in-right');
+	                            				}else
+			                            		{
+			                            			mui.toast(rs1.details); 
+			                            			return;
+			                            		}
+	                            			})
+	                            			//mui.back();
+	                            		}else
+	                            		{
+	                            			mui.toast(rs.details);
+	                            			return;
+	                            		}
+	                            })
+	                        } else {
+	                            mui.toast("请输入整数数字,并运费券数量大于50！");
+	                            return;
+	                        }
+	                    } else {
+	                        if (maxpoints == parseInt($("#points").val())) {
+	                            var data = {
+	                            		queryData:{
+	                            			tradeCode:'buy',
+	                            			plattosaleid:plattosaleid,
+	                            			points:parseInt($("#points").val()),
+	                            			pointkind:pointkind,
+	                            			buyuserid:localStorage.getItem('userid'),
+	                            			saleuserid:saleuserid,
+	                            			money:money,
+	                            			discount:discount,
+	                            			returnSelect:'null'
+	                            		}
+	                            }
+	                            console.log('%o',data);
+	                            lnjoy.GetDataByPost(data,function(rs){
+	                            		console.log('%o',rs);
+	                            		if(rs.hasOwnProperty('success'))
+	                            		{
+	                            			var player = plus.audio.createPlayer("_www/resource/sound.mp3");
+										player.play(function (e) {
+											//sendsocket(localStorage.getItem('userid'),saleuserid,"购买");
+										},function (e) {
+											console.log(e.message);
+									    },false);
+										clicked('paymoney.html',{expireDate:rs.expireDate,amount:parseFloat(money)*100,outOrderNo:rs.ordercode},'slide-in-right');
+	                            			//mui.back();
+	                            		}else
+	                            		{
+	                            			mui.toast(rs.details);
+	                            			return;
+	                            		}
+	                            })
+	                        } else {
+	                            mui.toast("剩余数量小于50，需一次性购买全部剩余数量！");
+	                            return;
+	                        }
+	                    }
+	                } else {
+	                    mui.toast("请输入整数数字！");
+	                    return;
+	                }
+	            } else {
+	                mui.toast("订单失效！");
+	                return;
+	            }
+	        } else {
+	            mui.toast("请输入需购买的运费券数量！");
+	            return;
+	        }
+	    }
+	    function Cancel()
+	    {
+	        mui.back();
+	    }
+	</script>
+</html>

@@ -1,1 +1,68 @@
-null
+{
+	"html/advertisement.html": {
+		"refer": [
+			"html/buylist.html"
+		]
+	},
+	"html/buylist.html": {
+		"refer": [
+			"html/login.html",
+			"html/scan.html",
+			"html/pointslist.html",
+			"html/my.html",
+			"html/buypointsdetails.html",
+			"html/orderlist.html",
+			"html/MyCard.html"
+		]
+	},
+	"html/pointslist.html": {
+		"refer": [
+			"html/paypoints.html",
+			"html/buylist.html",
+			"html/comfirmpoints.html"
+		]
+	},
+	"html/my.html": {
+		"refer": [
+			"html/tradelist.html",
+			"html/orderlist.html",
+			"html/buylist.html",
+			"html/setting.html",
+			"html/headsel.html",
+			"html/myzxplattosale.html"
+		]
+	},
+	"html/orderlist.html": {
+		"refer": [
+			"html/buylist.html",
+			"html/my.html"
+		]
+	},
+	"html/buypointsdetails.html": {
+		"refer": [
+			"html/paymoney.html",
+			"html/payxy.html"
+		]
+	},
+	"html/paymoney.html": {
+		"refer": [
+			"html/buylist.html"
+		]
+	},
+	"html/comfirmpoints.html": {
+		"refer": [
+			"html/pointslist.html"
+		]
+	},
+	"html/setting.html": {
+		"refer": [
+			"html/buylist.html"
+		]
+	},
+	"html/myzxplattosale.html": {
+		"refer": [
+			"html/buypointsdetails.html",
+			"html/buylist.html"
+		]
+	}
+}

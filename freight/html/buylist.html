@@ -33,6 +33,10 @@
 				align-items:center;
 				background-color: #0078B9;
 			}
+			.top-div-img{
+				margin-top: 0.5rem;
+				height: 2rem;
+			}
 			.top-box-item{
 				flex: 1;
 			}
@@ -50,11 +54,26 @@
 				font-weight: bold;
 				font-size: 1.2rem;
 			}
+			.top-div-span1{
+				color: #FFFFFF;
+				font-weight: bold;
+				font-size: 1rem;
+			}
 			.top-search{
 				margin-top: 3.5rem;
-				height:2.2rem;
+				height:1.5rem;
 				display:flex;
 				justify-content: center; 
+			}
+			.top-div1{
+				flex: 1;
+				font-size: 0.8rem;
+				text-align: center;
+				font-weight: bold;
+			}
+			.top-div1-color{
+				color: red;
+				font-size: 1.2rem;
 			}
 			.search-div1{
 				flex: 2;
@@ -157,7 +176,9 @@
 				font-size: 0.7rem;
 				text-align: center;
 				font-family: "微软雅黑";
-				color: rgb(153,153,153);
+				color: rgb(24,146,211);
+				font-weight: bold;
+				/*color: rgb(153,153,153);*/
 			}
 			.center-li-title-img2{
 				width: 0.6rem;
@@ -217,12 +238,12 @@
 				margin: 0 auto;
 			}
 			.font-color-red{
-				color: red;
+				color: red !important;
 				font-weight:bold ;
 			}
 			.center-li-content-div3-span1{
 				color: red;
-				font-size:1rem ;
+				font-size:0.8rem ;
 				flex: 1;
 				text-align: center;
 				font-weight: bold;
@@ -247,17 +268,24 @@
 	</head>
 	<header class="mui-bar mui-bar-nav top-box">
 		<div class="top-box-item" id="ewmclass">
-			<img class="bottom-div-img" src="../img/buylist/sys.png" />
+			<img class="top-div-img" src="../img/buylist/sys.png" />
 		</div>
 		<div class="top-box-item top-box-item-center">
 			<span class="top-div-span">发啥货</span>
 		</div>
 		<div class="top-box-item top-box-item-right" id="mycard">
-			<img class="bottom-div-img" src="../img/buylist/card.png" />
+			<img class="top-div-img" src="../img/buylist/card.png" />
 		</div>
 	</header>
 	<section>
-		<div class="top-search">
+		<div class="top-search" id="qgjltab">
+			<div class="top-div1">抢购战绩：<span class="top-div1-color" id="qgzj">0</span>单</div>
+			<div class="top-div1">省钱总额：<span class="top-div1-color" id="sqze">0</span>元</div>
+		</div>
+	</section>
+	<hr class="hr1" />
+	<section>
+		<div class="center-search">
 			<div class="search-div1">
 				<button id='showCityPicker' class="mui-btn mui-btn-block button-div1" type='button'>
 					<span class="span-div1">常州</span>
@@ -330,14 +358,20 @@
 	<script src="../js/template.min.js"></script>
 	<script src="../js/mui.min.js"></script>
 	<script src="../js/zepto.js"></script>
+	<script src="../js/reconnecting-websocket.min.js"></script>
+	<script src="../js/stomp.min.js"></script>
+	<script src="../js/sockjs.min.js"></script>
 	<script src="../js/app.js"></script>
 	<script src="../js/mui.picker.min.js"></script>
 	<script src="../js/mui.poppicker.js"></script>
+	<!--<script language="javascript" src="http://webapi.amap.com/maps?v=1.3&bed9045a875172717784218add2d454a"></script>-->
     <script id="tpl" type="text/html">
 	    <%for(var i in list){
 	    		if(list[i].points > 0)
 	    		{
-	    			%>
+	    			if(list[i].diffhour > 0)
+	    			{
+	    				%>
 	    					<li>
 							<div class="center-li-title">
 								<div class="center-li-title-div1"><span><%=list[i].UserXM%></span> </div>
@@ -348,13 +382,25 @@
 							<div class="center-li-content">
 								<div class="center-li-content-div1">
 									<div class="center-li-content-div1-child">
-										<img class="center-li-content-img1" src="../img/buylist/timg.png"/>
-										<button type="button" class="mui-btn mui-btn-danger gzbutton" onclick="gz('<%=list[i].userid%>');">关注</button>
+										<%
+											if(list[i].avatarUrl)
+											{
+												%>
+													<img class="center-li-content-img1" src="<%=list[i].avatarUrl%>"  onclick="showdetailsfuc('<%=list[i].userid%>','<%=list[i].plattosaleid%>',1);"/>
+												<%
+											}else
+											{
+												%>
+													<img class="center-li-content-img1" src="../img/buylist/timg.png"  onclick="showdetailsfuc('<%=list[i].userid%>','<%=list[i].plattosaleid%>',1);"/>
+												<%
+											}
+										%>
+										<button id="<%=list[i].userid%>gz" type="button" class="mui-btn mui-btn-danger gzbutton" onclick="gz('<%=list[i].userid%>');"><%if(list[i].GZ_ID){%>已关注<%}else{%>关注<%}%></button>
 									</div>
 								</div>
 								<div class="center-li-content-div2">
 									<div class="center-li-content-span1">
-										消费总券额：75622
+										消费总券额：<%=list[i].sum%>
 									</div>
 									<div class="center-li-content-span1">
 										运费券：<span class="font-color-red"><%=list[i].points%></span>&nbsp;&nbsp;折扣：<span class="font-color-red"><%=list[i].discountmemo%></span>
@@ -363,24 +409,159 @@
 										线路：<span class="font-color-red"><%=list[i].ToRoute%></span>
 									</div>
 									<div class="center-li-content-span1">
-										使用运费券剩余：<span class="font-color-red">15小时</span>
+										运费券有效时间：<span class="font-color-red"><%=list[i].diffhour%>小时</span>
 									</div>
 									<div class="center-li-content-span1">
-										使用条件：货品不限，包装不限，每票货使用不超过500运费券；
+										使用条件：
+										<%
+											if(list[i].pointkindname == "查货宝平台券")
+											{
+												%>
+												<span class="font-color-red">货品不限，包装不限，单次购买不超过500运费券；</sapn>
+												<%
+											}else
+											{
+												if(list[i].desc2)
+												{
+													if(list[i].ZhLx||list[i].PhLx)
+													{
+														%>
+														<span class="font-color-red"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+														<%
+													}else
+													{
+														%>
+														<span class="font-color-red"><%=list[i].desc1%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+														<%
+													}
+												}else
+												{
+													if(list[i].ZhLx||list[i].PhLx)
+													{
+														%>
+														<span class="font-color-red"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+														<%
+													}else
+													{
+														%>
+														<span class="font-color-red"><%=list[i].desc1%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+														<%
+													}
+												}
+											}
+										%>
 									</div>
 									<!--<div>
 										推荐指数：300点
 									</div>-->
-									<button class="center-li-content-span1 center-ckxq showdetails" onclick="showdetailsfuc('<%=list[i].userid%>',1);">
+									<button class="center-li-content-span1 center-ckxq showdetails" onclick="showdetailsfuc('<%=list[i].userid%>','<%=list[i].plattosaleid%>',1);">
 										查看详情<img class="center-li-content-img2" src="../img/buylist/ckxq.png" />
 									</button>
 								</div>
 								<div class="center-li-content-div3">
-									<button type="button" class="mui-btn mui-btn-primary" onclick="Buypoints('<%=list[i].userid%>');">抢购</button>
+									<button type="button" class="mui-btn mui-btn-primary" onclick="Buypoints('<%=list[i].plattosaleid%>','<%=list[i].userid%>','<%=list[i].pointkindname%>','<%=list[i].diffhour%>','<%=list[i].desc1%>','<%=list[i].desc2%>','<%=list[i].desc3%>','<%=list[i].desc4%>','<%=list[i].desc5%>','<%=list[i].ZhLx%>','<%=list[i].PhLx%>');">抢购</button>
 								</div>	
 							</div>
 						</li>
-	    			<%
+	    				<%
+	    			}else{
+	    				%>
+	    					<li class="cell-background">
+							<div class="center-li-title">
+								<div class="center-li-title-div1"><span><%=list[i].UserXM%></span> </div>
+								<div class="center-li-title-div2"><img class="center-li-title-img2" src="../img/buylist/gzs.png" /> <span>关注数 <%=list[i].GZCount%></span> </div>
+								<div class="center-li-title-div2"><img class="center-li-title-img2" src="../img/buylist/lls.png" /> <span>购买数 <%=list[i].SaleCount%></span> </div>
+								<!--<div class="center-li-title-div2"><img class="center-li-title-img2" src="../img/buylist/lls.png" /> <span>浏览数 50000</span> </div>-->
+							</div>
+							<div class="center-li-content">
+								<div class="center-li-content-div1">
+									<div class="center-li-content-div1-child">
+										<%
+											if(list[i].avatarUrl)
+											{
+												%>
+													<img class="center-li-content-img1" src="<%=list[i].avatarUrl%>" onclick="showdetailsfuc('<%=list[i].userid%>','<%=list[i].plattosaleid%>',2);"/>
+												<%
+											}else
+											{
+												%>
+													<img class="center-li-content-img1" src="../img/buylist/timg.png" onclick="showdetailsfuc('<%=list[i].userid%>','<%=list[i].plattosaleid%>',2);"/>
+												<%
+											}
+										%>
+										<button id="<%=list[i].userid%>gz" type="button" class="mui-btn mui-btn-danger gzbutton" onclick="gz('<%=list[i].userid%>');"><%if(list[i].GZ_ID){%>已关注<%}else{%>关注<%}%></button>
+									</div>
+								</div>
+								<div class="center-li-content-div2">
+									<div class="center-li-content-span2">
+										消费总券额：<%=list[i].sum%>
+									</div>
+									<div class="center-li-content-span2">
+										运费券：<span class="font-color-white"><%=list[i].points%></span>&nbsp;&nbsp;折扣：<span class="font-color-white"><%=list[i].discountmemo%></span>
+									</div>
+									<div class="center-li-content-span2">
+										线路：<span class="font-color-white"><%=list[i].ToRoute%></span>
+									</div>
+									<div class="center-li-content-span2">
+										运费券有效时间：<span class="font-color-white"><%=list[i].diffhour%>小时</span>
+									</div>
+									<div class="center-li-content-span2">
+										使用条件：
+										<%
+											if(list[i].pointkindname == "查货宝平台券")
+											{
+												%>
+												<span class="font-color-white">货品不限，包装不限，单次购买不超过500运费券；</sapn>
+												<%
+											}else
+											{
+												if(list[i].desc2)
+												{
+													if(list[i].ZhLx||list[i].PhLx)
+													{
+														%>
+														<span class="font-color-white"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+														<%
+													}else
+													{
+														%>
+														<span class="font-color-white"><%=list[i].desc1%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+														<%
+													}
+												}else
+												{
+													if(list[i].ZhLx||list[i].PhLx)
+													{
+														%>
+														<span class="font-color-white"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+														<%
+													}else
+													{
+														%>
+														<span class="font-color-white"><%=list[i].desc1%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+														<%
+													}
+												}
+											}
+										%>
+									</div>
+									<!--<div>
+										推荐指数：300点
+									</div>-->
+									<button class="center-li-content-span1 center-ckxq showdetails background-gray" onclick="showdetailsfuc('<%=list[i].userid%>','<%=list[i].plattosaleid%>',2);">
+										查看详情<img class="center-li-content-img2" src="../img/buylist/ckxq.png" />
+									</button>
+								</div>
+								<div class="center-li-content-div3">
+									<div>
+								    		<div class="center-li-content-div3-span1">过期</div>
+										<div class="center-li-content-div3-span2">期待下次</div>
+								    </div>
+								</div>	
+							</div>
+						</li>
+	    				<%
+	    			}
 	    		}else
 	    		{
 	    			%>
@@ -394,13 +575,25 @@
 						<div class="center-li-content">
 							<div class="center-li-content-div1">
 								<div class="center-li-content-div1-child">
-									<img class="center-li-content-img1" src="../img/buylist/timg.png"/>
-									<button type="button" class="mui-btn mui-btn-danger gzbutton" onclick="gz('<%=list[i].userid%>');">关注</button>
+									<%
+										if(list[i].avatarUrl)
+										{
+											%>
+												<img class="center-li-content-img1" src="<%=list[i].avatarUrl%>" onclick="showdetailsfuc('<%=list[i].userid%>','<%=list[i].plattosaleid%>',1);"/>
+											<%
+										}else
+										{
+											%>
+												<img class="center-li-content-img1" src="../img/buylist/timg.png" onclick="showdetailsfuc('<%=list[i].userid%>','<%=list[i].plattosaleid%>',1);"/>
+											<%
+										}
+									%>
+									<button id="<%=list[i].userid%>gz" type="button" class="mui-btn mui-btn-danger gzbutton" onclick="gz('<%=list[i].userid%>');"><%if(list[i].GZ_ID){%>已关注<%}else{%>关注<%}%></button>
 								</div>
 							</div>
 							<div class="center-li-content-div2">
 								<div class="center-li-content-span2">
-									消费总券额：75622
+									消费总券额：<%=list[i].sum%>
 								</div>
 								<div class="center-li-content-span2">
 									运费券：<span class="font-color-white"><%=list[i].points%></span>&nbsp;&nbsp;折扣：<span class="font-color-white"><%=list[i].discountmemo%></span>
@@ -409,21 +602,58 @@
 									线路：<span class="font-color-white"><%=list[i].ToRoute%></span>
 								</div>
 								<div class="center-li-content-span2">
-									使用运费券剩余：<span class="font-color-white">15小时</span>
+									运费券有效时间：<span class="font-color-white"><%=list[i].diffhour%>小时</span>
 								</div>
 								<div class="center-li-content-span2">
-									使用条件：货品不限，包装不限，每票货使用不超过500运费券；
+									使用条件：
+									<%
+										if(list[i].pointkindname == "查货宝平台券")
+										{
+											%>
+											<span class="font-color-white">货品不限，包装不限，单次购买不超过500运费券；</sapn>
+											<%
+										}else
+										{
+											if(list[i].desc2)
+											{
+												if(list[i].ZhLx||list[i].PhLx)
+												{
+													%>
+													<span class="font-color-white"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}else
+												{
+													%>
+													<span class="font-color-white"><%=list[i].desc1%>；包装：<%=list[i].desc5%>；目的地：<%=list[i].desc3%>；<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}
+											}else
+											{
+												if(list[i].ZhLx||list[i].PhLx)
+												{
+													%>
+													<span class="font-color-white"><%=list[i].desc1%>；<%=list[i].ZhLx%><%=list[i].PhLx%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}else
+												{
+													%>
+													<span class="font-color-white"><%=list[i].desc1%>；包装不限；目的地：<%=list[i].desc3%>；<%=list[i].desc4%>；每票货使用券额不限</sapn>
+													<%
+												}
+											}
+										}
+									%>
 								</div>
 								<!--<div>
 									推荐指数：300点
 								</div>-->
-								<button class="center-li-content-span1 center-ckxq showdetails background-gray" onclick="showdetailsfuc('<%=list[i].userid%>',2);">
+								<button class="center-li-content-span1 center-ckxq showdetails background-gray" onclick="showdetailsfuc('<%=list[i].userid%>','<%=list[i].plattosaleid%>',2);">
 									查看详情<img class="center-li-content-img2" src="../img/buylist/ckxq.png" />
 								</button>
 							</div>
 							<div class="center-li-content-div3">
 								<div>
-							    		<div class="center-li-content-div3-span1">售罄</div>
+							    		<div class="center-li-content-div3-span1">抢完了</div>
 									<div class="center-li-content-div3-span2">期待下次</div>
 							    </div>
 							</div>	
@@ -446,7 +676,7 @@
 				}
 			}
 		});
-
+		
 		var salepx = 0;
 		var discountpx = 0;
 		var flowerpx = 0;
@@ -455,45 +685,133 @@
 		var discountpx_str = "";
 		var flowerpx_str = "";
 		var buynumpx_str = "";
-		var fromroute = "常州"; 
+		var fromroute = "常州";
 		var userxm = "";
 		var count = 1;
 		var pageSize = 10;
+		var userid = "";
+		var data_user = {
+			queryData:{
+				tradeCode:'tbbuser.wode',
+				userid:localStorage.getItem('userid')
+			}
+		};
+		console.log('%o',data_user);
+		lnjoy.GetDataByPost(data_user,function(rs){
+			console.log('%o',rs);
+			$('#qgzj').html(rs.list[0].count);
+			$('#sqze').html(rs.list[0].sum);
+		});
+//		if(localStorage.getItem('fromroute'))
+//			fromroute = localStorage.getItem('fromroute');
+//		if (navigator.geolocation)
+//	    {
+//	    		console.log("定位服务");
+//	    		navigator.geolocation.getCurrentPosition(showPosition);
+//	    }
+//	    function showPosition(position)
+//		{
+//			console.log("数据上传："+position.coords.latitude+"，"+position.coords.longitude);
+//			var data_place = {
+//				queryData:{
+//					tradeCode:'getLocation',
+//					location:position.coords.longitude+","+position.coords.latitude
+//				}
+//			}
+//			lnjoy.GetDataByPost(data_place,function(rs){
+//				console.log('%o',rs);
+//				if((rs.regeocode.addressComponent.city&&rs.regeocode.addressComponent.city.length>0)||(rs.regeocode.addressComponent.province&&rs.regeocode.addressComponent.city.province>0))
+//				{
+//					var place = rs.regeocode.addressComponent.province;
+//					if(rs.regeocode.addressComponent.city)
+//						place = rs.regeocode.addressComponent.city;
+//					if(!localStorage.getItem('fromroute')||localStorage.getItem('fromroute')!=place.replace('市',''))
+//					{
+//						var btnArray = ['否', '是'];
+//						mui.confirm('您当前所在地为：'+place.replace('市','')+'，是否要使用当前定位？', '提示', btnArray, function(e) {
+//							if (e.index == 1) {
+//								localStorage.setItem('fromroute',place.replace('市',''));
+//								count = 1;
+//								$('.span-div1').html(place.replace('市',''));
+//								$('#wp').empty();
+//								fromroute = place.replace('市','');
+//								pullupRefresh();	
+//								mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+//							}
+//						})
+//					}
+//				}
+//			});
+//		}
 		/**
 		 * 上拉加载具体业务实现
 		 */
 		function pullupRefresh() {
+			if(localStorage.getItem('userid'))
+				userid = localStorage.getItem('userid');
 			var orderby = salepx_str+discountpx_str+flowerpx_str+buynumpx_str;
 			if(orderby.length>0)
 				orderby = orderby.substr(0, orderby.length - 1);
 			var data = {
 				queryData:{
-					tradeCode:'tbbplattosale.selectPlattosale',
+					tradeCode:'tbbplattosale.selectPlattosale104',
 					orderby:orderby,
 					currentPage:count,
 					fromroute:fromroute,
 					userxm:$('#keyword').val(),
+					userid:userid,
 					pageSize:pageSize
 				}
 			};
+			console.log('%o',data);
 			lnjoy.GetDataByPost(data,function(rs){
-				mui('#pullrefresh').pullRefresh().endPullupToRefresh((count > parseInt(rs.pagination.totaPage))); //参数为true代表没有更多数据了。
+				console.log('%o',rs);
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > parseInt(rs.pagination.totalPage))); //参数为true代表没有更多数据了。
 				var html = template('tpl',rs);
 				$('#wp').append(html);
-				count++;
-				//document.getElementById('wp').innerHTML = html;
 			});
 
 		}
-		function Buypoints()
+		function Buypoints(plattosaleid,userid,pointkindname,diffhour,desc1,desc2,desc3,desc4,desc5,ZhLx,PhLx)
 		{
+			console.log(desc1);
+			console.log(desc2);
+			console.log(desc3);
+			console.log(desc4);
+			console.log(desc5);
 			if(!localStorage.getItem('userid'))
 				mui.alert('您还未登陆，请立即登陆！', '提示',function(){
 					clicked('login.html', {}, 'slide-in-right');
 				});
 			else
 			{
-				clicked('buycontent.html', {}, 'slide-in-right');
+				if(pointkindname == "查货宝平台券")
+				{
+					var btnArray = ['我知道了，取消', '我知道了，继续'];
+					mui.confirm('<div style="text-align:start;">使用条件：<span style="color:red;">货品不限</span><div style="color:red;">　　　　　包装不限</div></div><div style="text-align:start;">有效时间：<span style="color:red;">'+diffhour+'小时</span></div><div style="text-align:start;">备　　注：<span style="color:red;">每票货使用上限500</span></div><div><span style="color:red;">一经售出，概不退款</span></div>','提示',btnArray,function(e){
+						console.log('%o',e);
+						if (e.index == 1) {
+							clicked('buypointsdetails.html', {plattosaleid:plattosaleid}, 'slide-in-right');
+						}
+					},'div');
+				}else
+				{
+					var btnArray = ['我知道了，取消', '我知道了，继续'];
+					if(ZhLx||PhLx)
+						desc1 += "；"+ZhLx+PhLx;
+					if(desc5 != "包装不限")
+						desc5 = "包装："+desc5;
+					mui.confirm('<div style="text-align:start;">使用条件：<span style="color:red;">'+desc1+'</span><div style="color:red;">　　　　　'+desc5+'</div><div style="color:red;">　　　　　目的地：'+desc3+'</div></div><div style="text-align:start;">有效时间：<span style="color:red;">'+diffhour+'小时　'+desc4+'</span></div><div style="text-align:start;">备　　注：<span style="color:red;">每票货使用券额不限</span></div><div><span style="color:red;">一经售出，概不退款</span></div>','提示',btnArray,function(e){
+						console.log('%o',e);
+						if (e.index == 1) {
+							clicked('buypointsdetails.html', {plattosaleid:plattosaleid}, 'slide-in-right');
+						}
+					},'div');
+				}
+				
+				
+				//sendsocket(localStorage.getItem('userid'),userid,"购买订单");
+				//clicked('buypointsdetails.html', {plattosaleid:plattosaleid}, 'slide-in-right');
 			}
 		}
 		function ZhuCe(){
@@ -505,35 +823,41 @@
 			});
 		}
 		mui('.mui-bar-tab').on('tap','.mui-tab-item',function(){
-			var curr = plus.webview.currentWebview();
-			var wvs = plus.webview.all();
-			for(var i = 0, len = wvs.length; i < len; i++) {
-				if(wvs[i].id == curr.id)
-					continue;
-				plus.webview.close(wvs[i],'none');
-			}
-			var webview = this.getAttribute('data-webview');
-			var webview_id = this.getAttribute('data-webview') + new Date().getTime();
-			if(webview) {
-				mui.openWindow({
-					url: webview,
-					id: webview_id,
-					createNew: true, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
-					show: {
-						autoShow: true, //页面loaded事件发生后自动显示，默认为true
-						aniShow: 'none'
-					},
-					extras: {
-						refresh: true
-					},
-					waiting: {
-						autoShow: true //自动显示等待框，默认为true
-					}
-				});
-				var openw = plus.webview.getWebviewById(webview);
-				if(openw) {
-					mui.fire(openw, 'refresh');
+			if(localStorage.getItem('userid'))
+			{
+				var curr = plus.webview.currentWebview();
+				var wvs = plus.webview.all();
+				for(var i = 0, len = wvs.length; i < len; i++) {
+					if(wvs[i].id == curr.id)
+						continue;
+					plus.webview.close(wvs[i],'none');
 				}
+				var webview = this.getAttribute('data-webview');
+				var webview_id = this.getAttribute('data-webview') + new Date().getTime();
+				if(webview) {
+					mui.openWindow({
+						url: webview,
+						id: webview_id,
+						createNew: true, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'none'
+						},
+						extras: {
+							refresh: true
+						},
+						waiting: {
+							autoShow: true //自动显示等待框，默认为true
+						}
+					});
+					var openw = plus.webview.getWebviewById(webview);
+					if(openw) {
+						mui.fire(openw, 'refresh');
+					}
+				}
+			}else
+			{
+				clicked('login.html', {}, 'slide-in-right');
 			}
 		})
 		function gz(userid)
@@ -545,16 +869,55 @@
 			}
 			else
 			{
-				
+				if(document.getElementById(userid+"gz").innerText=="关注")
+				{
+					var data = {
+						queryData:{
+							tradeCode:'tbbusergz.insert',
+							userid:localStorage.getItem('userid'),
+							gzuserid:userid,
+							returnSelect:'null'
+						}
+					};
+					lnjoy.GetDataByPost(data,function(rs){
+						mui.toast("关注成功");
+						document.getElementById(userid+"gz").innerText = "已关注";
+					});
+				}
+				else
+				{
+					var btnArray = ['是', '否'];
+					mui.confirm('取消关注后，您会收不到该专线的优惠信息哦？', '提醒', btnArray, function(e) {
+						if (e.index == 0) {
+							var data = {
+								queryData:{
+									tradeCode:'tbbusergz.deleteByPrimaryKey',
+									userid:localStorage.getItem('userid'),
+									gzuserid:userid,
+									returnSelect:'null'
+								}
+							};
+							lnjoy.GetDataByPost(data,function(rs){
+								mui.toast("取消关注");
+								document.getElementById(userid+"gz").innerText = "关注";
+							});
+						}
+					})
+				}
 			}
 		}
-		function showdetailsfuc(userid,lx){
-			clicked('buycontent.html', {userid:userid,lx:lx}, 'slide-in-right');
+		function showdetailsfuc(userid,plattosaleid,lx){
+			clicked('buycontent.html', {userid:userid,plattosaleid:plattosaleid,lx:lx}, 'slide-in-right');
 		}
 		$('.button-div2').click(function(){
 			count = 1;
 			$('#wp').empty();
-			pullupRefresh();
+			mui('#pullrefresh').pullRefresh().refresh(true);
+//					mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+//					mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+			//pullupRefresh();	
+			mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+			mui('#pullrefresh').pullRefresh().pullupLoading();
 		});
 //		mui('.center-li-content-div2').on('tap','.showdetails',function(){
 //			//alert(1);
@@ -565,7 +928,15 @@
 			clicked('pointslist.html', {}, 'slide-in-right');
 		})*/
 		document.getElementById('mycard').addEventListener('tap',function(){
-			clicked('photo.html', {}, 'slide-in-right');
+			if(localStorage.getItem('userid'))
+			{
+				clicked('MyCard.html', {}, 'slide-in-right');
+			}else
+			{
+				mui.alert('您还未登陆，请立即登陆！', '提示',function(){
+					clicked('login.html', {}, 'slide-in-right');
+				});
+			}
 			//clicked('MyCard.html', {}, 'slide-in-right');
 		});
 //		document.getElementById('showUserPicker').addEventListener('tap',function(){
@@ -590,9 +961,23 @@
 					salepx_str = "";
 					break;
 			}
+			discountpx = 0;
+			$('.discountpx-img').attr("src", "../img/buylist/px1.png");
+			discountpx_str = "";
+			flowerpx = 0;
+			$('.flowerpx-img').attr("src", "../img/buylist/px1.png");
+			flowerpx_str = "";
+			buynumpx = 0;
+			$('.buynumpx-img').attr("src", "../img/buylist/px1.png");
+			buynumpx_str = "";
 			count = 1;
 			$('#wp').empty();
-			pullupRefresh();
+			mui('#pullrefresh').pullRefresh().refresh(true);
+//					mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+//					mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+			//pullupRefresh();	
+			mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+			mui('#pullrefresh').pullRefresh().pullupLoading();
 		});
 		document.getElementById('discountpx').addEventListener('tap',function(){
 			switch(discountpx)
@@ -613,9 +998,23 @@
 					discountpx_str = "";
 					break;
 			}
+			salepx = 0;
+			$('.salepx-img').attr("src", "../img/buylist/px1.png");
+			salepx_str = "";
+			flowerpx = 0;
+			$('.flowerpx-img').attr("src", "../img/buylist/px1.png");
+			flowerpx_str = "";
+			buynumpx = 0;
+			$('.buynumpx-img').attr("src", "../img/buylist/px1.png");
+			buynumpx_str = "";
 			count = 1;
 			$('#wp').empty();
-			pullupRefresh();
+			mui('#pullrefresh').pullRefresh().refresh(true);
+//					mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+//					mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+			//pullupRefresh();	
+			mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+			mui('#pullrefresh').pullRefresh().pullupLoading();
 		});
 		document.getElementById('flowerpx').addEventListener('tap',function(){
 			switch(flowerpx)
@@ -636,9 +1035,23 @@
 					flowerpx_str = "";
 					break;
 			}
+			salepx = 0;
+			$('.salepx-img').attr("src", "../img/buylist/px1.png");
+			salepx_str = "";
+			discountpx = 0;
+			$('.discountpx-img').attr("src", "../img/buylist/px1.png");
+			discountpx_str = "";
+			buynumpx = 0;
+			$('.buynumpx-img').attr("src", "../img/buylist/px1.png");
+			buynumpx_str = "";
 			count = 1;
 			$('#wp').empty();
-			pullupRefresh();
+			mui('#pullrefresh').pullRefresh().refresh(true);
+//					mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+//					mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+			//pullupRefresh();	
+			mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+			mui('#pullrefresh').pullRefresh().pullupLoading();
 		});
 		document.getElementById('buynumpx').addEventListener('tap',function(){
 			switch(buynumpx)
@@ -659,25 +1072,82 @@
 					buynumpx_str = "";
 					break;
 			}
+			salepx = 0;
+			$('.salepx-img').attr("src", "../img/buylist/px1.png");
+			salepx_str = "";
+			discountpx = 0;
+			$('.discountpx-img').attr("src", "../img/buylist/px1.png");
+			discountpx_str = "";
+			flowerpx = 0;
+			$('.flowerpx-img').attr("src", "../img/buylist/px1.png");
+			flowerpx_str = "";
 			count = 1;
 			$('#wp').empty();
-			pullupRefresh();
+			mui('#pullrefresh').pullRefresh().refresh(true);
+//					mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+//					mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+			//pullupRefresh();	
+			mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+			mui('#pullrefresh').pullRefresh().pullupLoading();
 		}); 
 		function scaned(t, r, f) {
-			console.log(r);
+			clicked('pointslist.html', {ewmbs:r}, 'slide-in-right');
 		}
+		document.getElementById('qgjltab').addEventListener('tap',function(event){
+			clicked('mypaylist.html',{},'slide-in-right');
+		})
 		if (mui.os.plus) {
 			mui.plusReady(function() {
+				if(localStorage.getItem('firstopen')==1)
+				{
+					localStorage.setItem('firstopen',2);
+					var player = plus.audio.createPlayer("_www/resource/fsh.mp3");
+					player.play(function (e) {
+						console.log('播放完成后，运行代码');
+					},function (e) {
+						console.log(e.message);
+				    },false);
+				}
 				setTimeout(function(){
 					mui('#pullrefresh').pullRefresh().pullupLoading();
 				},500);
 				var btn_scan =document.getElementById("ewmclass");
 				btn_scan.addEventListener('tap', function(e) {
-					mui.openWindow({
-						id: 'scan',
-						url: 'scan.html'
-					});
+					if(localStorage.getItem('userid'))
+					{
+						mui.openWindow({
+							id: 'scan',
+							url: 'scan.html'
+						});
+					}else
+					{
+						mui.alert('您还未登陆，请立即登陆！', '提示',function(){
+							clicked('login.html', {}, 'slide-in-right');
+						});
+					}
 				});
+				var rainPage = 0;
+				mui.back = function() {
+					rainPage++;
+					if (rainPage>1) {
+						plus.runtime.quit();
+					} else {
+						plus.nativeUI.toast('再按一次退出应用，你会收不到提醒信息哦');
+					}
+					setTimeout(function(){
+						rainPage = 0;
+					}, 1000);
+					return false;
+				}
+//				setTimeout(function(){
+//					var player = plus.audio.createPlayer("../resource/music.mp3");
+//					player.play(function (e) {
+//						console.log('播放完成后，运行代码');
+//					},function (e) {
+//						console.log(e.message);
+//				    },false);
+//				},2000);
+				
 				//index向a页面传值：
 //				if(window.WebSocket){
 //		        	var socket = new WebSocket('ws://......'); 
@@ -700,7 +1170,7 @@
 //					//业务逻辑
 //				})
 			});
-		} else {
+	} else {
 			mui.ready(function() {
 				mui('#pullrefresh').pullRefresh().pullupLoading();
 			});
@@ -738,10 +1208,16 @@
 			var showCityPickerButton = document.getElementById('showCityPicker');
 			showCityPickerButton.addEventListener('tap', function(event) {
 				cityPicker.show(function(items) {
+					count = 1;
 					$('.span-div1').html(items[1].text.replace('市',''));
 					$('#wp').empty();
 					fromroute = items[1].text.replace('市','');
-					pullupRefresh();	
+					mui('#pullrefresh').pullRefresh().refresh(true);
+//					mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+//					mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+					//pullupRefresh();	
+					mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+					mui('#pullrefresh').pullRefresh().pullupLoading();
 				});
 			}, false); 
 		});
